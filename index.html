@@ -239,14 +239,170 @@
     }
 
     .divider {
+      position: relative;
       border: none;
       border-top: 1px solid var(--parchment-darker);
       border-bottom: 1px solid var(--parchment-darker);
       height: 5px;
       background: var(--gold);
-      opacity: 0.5;
+      opacity: 0.7;
       margin: 1.2rem auto 2.4rem;
       width: 180px;
+    }
+
+    /* Franja decorativa inspirada en el ñandutí únicamente en la parte inferior de los separadores */
+    .divider::after {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 160px;
+      height: 12px;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 16'%3E%3Cpath d='M0,0 Q15,12 30,0 Q45,12 60,0 Q75,12 90,0 Q105,12 120,0' fill='none' stroke='%23755537' stroke-width='1.5'/%3E%3Cpath d='M15,6 L15,12 M45,6 L45,12 M75,6 L75,12 M105,6 L105,12' stroke='%23755537' stroke-width='1'/%3E%3Ccircle cx='15' cy='12' r='2' fill='%23755537'/%3E%3Ccircle cx='45' cy='12' r='2' fill='%23755537'/%3E%3Ccircle cx='75' cy='12' r='2' fill='%23755537'/%3E%3Ccircle cx='105' cy='12' r='2' fill='%23755537'/%3E%3C/svg%3E");
+      background-repeat: repeat-x;
+      background-size: 30px 12px;
+      opacity: 0.5;
+      pointer-events: none;
+    }
+
+    /* ============================================
+    /* ============================================
+       STICKERS DECORATIVOS CULTURALES EN EL HERO
+       ============================================ */
+    .hero-sticker-container {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 4;
+      overflow: hidden;
+    }
+
+    .hero-sticker {
+      position: absolute;
+      filter: drop-shadow(0px 8px 16px rgba(28, 18, 12, 0.35));
+      transition: filter 0.4s ease;
+      will-change: transform;
+    }
+
+    .hero-sticker img {
+      display: block;
+      width: 100%;
+      height: auto;
+      filter: url(#sticker-border);
+      transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+      will-change: transform;
+    }
+
+    /* Posicionamiento base y animaciones ambientales orgánicas de brisa */
+    .sticker-sombrero {
+      top: 10%;
+      left: 5%;
+      width: 165px;
+      animation: breeze-sombrero 9.5s ease-in-out 0.5s infinite;
+    }
+
+    .sticker-arpa {
+      top: 8%;
+      right: 5%;
+      width: 150px;
+      animation: breeze-arpa 11s ease-in-out 1.8s infinite;
+    }
+
+    .sticker-terere {
+      top: 48%;
+      left: 4%;
+      width: 145px;
+      animation: breeze-terere 8.5s ease-in-out 3.2s infinite;
+    }
+
+    .sticker-nanduti {
+      top: 46%;
+      right: 4%;
+      width: 155px;
+      animation: breeze-nanduti 10.5s ease-in-out 1s infinite;
+    }
+
+    /* Keyframes de animación ambiental sutil (brisa suave sobre escritorio de explorador) */
+    @keyframes breeze-sombrero {
+
+      0%,
+      100% {
+        transform: rotate(-6deg) translateY(0);
+      }
+
+      35% {
+        transform: rotate(-4deg) translateY(-3px);
+      }
+
+      70% {
+        transform: rotate(-8deg) translateY(2px);
+      }
+    }
+
+    @keyframes breeze-arpa {
+
+      0%,
+      100% {
+        transform: rotate(6deg) translateY(0);
+      }
+
+      40% {
+        transform: rotate(8deg) translateY(-2px);
+      }
+
+      75% {
+        transform: rotate(4deg) translateY(2px);
+      }
+    }
+
+    @keyframes breeze-terere {
+
+      0%,
+      100% {
+        transform: rotate(4deg) translateY(0);
+      }
+
+      45% {
+        transform: rotate(2deg) translateY(2px);
+      }
+
+      80% {
+        transform: rotate(6deg) translateY(-3px);
+      }
+    }
+
+    @keyframes breeze-nanduti {
+
+      0%,
+      100% {
+        transform: rotate(-5deg) translateY(0);
+      }
+
+      30% {
+        transform: rotate(-7deg) translateY(-2px);
+      }
+
+      65% {
+        transform: rotate(-3deg) translateY(1px);
+      }
+    }
+
+    /* Interacción Hover: pausa automáticamente la brisa ambiental y eleva/escala suavemente */
+    .hero-sticker:hover {
+      animation-play-state: paused;
+      filter: drop-shadow(0px 14px 24px rgba(28, 18, 12, 0.45));
+    }
+
+    .hero-sticker:hover img {
+      transform: scale(1.04) translateY(-5px);
+    }
+
+    /* Responsive: ocultar en tablets pequeñas y dispositivos móviles */
+    @media (max-width: 1024px) {
+      .hero-sticker-container {
+        display: none !important;
+      }
     }
 
     /* TRUCO DE ENVOLTURA DE SOMBRA PARA ELEMENTOS RECORTADOS */
@@ -314,9 +470,28 @@
     }
 
     .title-shadow {
+      position: relative;
       filter: drop-shadow(0px 10px 20px rgba(0, 0, 0, 0.4));
       max-width: 720px;
       margin: 0 auto 2.5rem;
+    }
+
+    /* Patrón circular de Ñandutí centrado detrás del logotipo principal */
+    .hero-nanduti-logo-bg {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 560px;
+      height: 560px;
+      background-image: url('images/ñanduti.png');
+      background-size: contain;
+      background-position: center;
+      background-repeat: no-repeat;
+      opacity: 0.08;
+      pointer-events: none;
+      z-index: -1;
+      filter: sepia(0.8) contrast(1.1) brightness(0.5);
     }
 
     /* Tarjeta de papel kraft marrón rasgado coincidente con image_0.png */
@@ -734,7 +909,7 @@
       background: var(--white-torn);
       color: var(--ink);
       clip-path: url(#torn-card);
-      padding: 3.5rem 2.8rem 3rem;
+      padding: 3.5rem 3.8rem 3rem;
       display: flex;
       flex-direction: column;
       flex-grow: 1;
@@ -832,6 +1007,8 @@
       height: 200px;
       overflow: hidden;
       margin-bottom: 1.5rem;
+
+      margin-inline: auto;
       border: 1px solid rgba(0, 0, 0, 0.05);
       clip-path: url(#torn-photo-1);
       background: var(--parchment-dark);
@@ -844,7 +1021,6 @@
       object-fit: cover;
     }
 
-
     .story-image-wrap .landmark-illustration svg {
       width: 100%;
       height: 100%;
@@ -854,6 +1030,7 @@
     .story-card:hover .story-image-wrap .landmark-illustration svg {
       transform: scale(1.04);
     }
+
 
     .story-location {
       font-family: 'Montserrat', sans-serif;
@@ -1017,14 +1194,6 @@
       font-weight: 500;
     }
 
-    .builder-bullets li::before {
-      content: '❦';
-      position: absolute;
-      left: 0;
-      top: 1px;
-      font-size: 0.9rem;
-      color: var(--red-old);
-    }
 
     /* Estilo de vista previa de diálogo RPG */
     .preview-header {
@@ -1350,6 +1519,160 @@
       justify-content: center;
       gap: 1.5rem;
       flex-wrap: wrap;
+    }
+
+    /* TARJETAS DE DESCARGA */
+    .download-cards-container {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+      max-width: 1100px;
+      margin: 2.5rem auto 1rem;
+      padding: 0 1rem;
+    }
+
+    .download-card {
+      box-sizing: border-box;
+      background: var(--parchment-dark);
+      border: 1px solid var(--parchment-darker);
+      border-top: 4px solid var(--gold);
+      border-radius: 4px;
+      padding: 2.5rem 1.5rem;
+      text-align: center;
+      flex: 1 1 260px;
+      max-width: 310px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .download-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.35);
+    }
+
+    .download-card-icon-wrapper {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      background: rgba(28, 18, 12, 0.05);
+      border: 1px solid rgba(28, 18, 12, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+      color: var(--sepia-dark);
+      transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+    }
+
+    .download-card:hover .download-card-icon-wrapper {
+      transform: scale(1.1);
+    }
+
+    .download-card-icon {
+      width: 32px;
+      height: 32px;
+    }
+
+    .download-card-title {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--sepia-dark);
+      margin: 0 0 0.8rem;
+    }
+
+    .download-card-description {
+      font-family: 'Lora', serif;
+      font-size: 1rem;
+      line-height: 1.5;
+      color: rgba(28, 18, 12, 0.85);
+      margin-bottom: 2rem;
+      flex-grow: 1;
+    }
+
+    .download-card .btn {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 0.9rem 1rem;
+      font-size: 0.95rem;
+    }
+
+    /* Windows - Azul */
+    .btn.btn-windows {
+      color: var(--parchment);
+      background: #1a437e;
+      box-shadow: 0 5px 0 var(--sepia-dark);
+    }
+
+    .btn.btn-windows:hover {
+      background: #235497;
+      transform: translateY(-2px);
+      box-shadow: 0 7px 0 var(--sepia-dark);
+    }
+
+    .btn.btn-windows:active {
+      transform: translateY(5px);
+      box-shadow: none;
+    }
+
+    /* Itch.io - Rojo */
+    .btn.btn-itch {
+      color: var(--parchment);
+      background: #b22626;
+      box-shadow: 0 5px 0 var(--sepia-dark);
+    }
+
+    .btn.btn-itch:hover {
+      background: #c93232;
+      transform: translateY(-2px);
+      box-shadow: 0 7px 0 var(--sepia-dark);
+    }
+
+    .btn.btn-itch:active {
+      transform: translateY(5px);
+      box-shadow: none;
+    }
+
+    /* Android - Verde */
+    .btn.btn-android {
+      color: var(--parchment);
+      background: #256e29;
+      box-shadow: 0 5px 0 var(--sepia-dark);
+    }
+
+    .btn.btn-android:hover {
+      background: #2f8334;
+      transform: translateY(-2px);
+      box-shadow: 0 7px 0 var(--sepia-dark);
+    }
+
+    .btn.btn-android:active {
+      transform: translateY(5px);
+      box-shadow: none;
+    }
+
+    /* Colorize icons wrapper on hover based on platform */
+    .download-card:hover .win-brand-color {
+      background-color: rgba(26, 67, 126, 0.1);
+      color: #1a437e;
+      border-color: rgba(26, 67, 126, 0.3);
+    }
+
+    .download-card:hover .itch-brand-color {
+      background-color: rgba(178, 38, 38, 0.1);
+      color: #b22626;
+      border-color: rgba(178, 38, 38, 0.3);
+    }
+
+    .download-card:hover .android-brand-color {
+      background-color: rgba(37, 110, 41, 0.1);
+      color: #256e29;
+      border-color: rgba(37, 110, 41, 0.3);
     }
 
     /* PIE DE PÁGINA */
@@ -1799,6 +2122,16 @@
         <path
           d="M0,0 L1,0 L1,0.9 L0.95,0.93 L0.91,0.9 L0.87,0.93 L0.83,0.91 L0.79,0.95 L0.75,0.92 L0.71,0.94 L0.67,0.9 L0.63,0.93 L0.59,0.91 L0.55,0.95 L0.51,0.92 L0.47,0.94 L0.43,0.9 L0.39,0.93 L0.35,0.91 L0.31,0.95 L0.27,0.92 L0.23,0.94 L0.19,0.9 L0.15,0.93 L0.11,0.91 L0.07,0.95 L0,0.92 Z" />
       </clipPath>
+      <!-- Filtro SVG para borde contorneado de sticker blanco (6-8px) -->
+      <filter id="sticker-border" x="-20%" y="-20%" width="140%" height="140%">
+        <feMorphology in="SourceAlpha" result="expanded" operator="dilate" radius="6" />
+        <feFlood flood-color="#ffffff" result="white" />
+        <feComposite in="white" in2="expanded" operator="in" result="outline" />
+        <feMerge>
+          <feMergeNode in="outline" />
+          <feMergeNode in="SourceGraphic" />
+        </feMerge>
+      </filter>
     </defs>
   </svg>
 
@@ -1831,13 +2164,13 @@
         </a>
       </li>
       <li>
-        <a href="#nuestroobjetivo" id="nav-nuestroobjetivo">
+        <a href="#paraque" id="nav-paraque">
           <svg class="nav-svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
             stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="M20.2 3.8a4.15 4.15 0 0 0-5.8 0L3 15.2V21h5.8L20.2 9.6a4.15 4.15 0 0 0 0-5.8z" />
             <line x1="12" y1="8" x2="16" y2="12" />
           </svg>
-          Nuestro Objetivo
+          ¿Para que?
         </a>
       </li>
       <li>
@@ -1865,17 +2198,35 @@
       </li>
     </ul>
 
-    <div class="sidebar-ornament" aria-hidden="true">❦</div>
   </nav>
 
   <!-- Sección Hero -->
   <header id="inicio" class="hero">
+    <!-- Stickers decorativos culturales exclusivos del Hero -->
+    <div class="hero-sticker-container" aria-hidden="true">
+      <div class="hero-sticker sticker-sombrero" data-aos="fade-down-right" data-aos-duration="1000"
+        title="Sombrero piri">
+        <img src="images/sombreropiri.png" alt="Sombrero piri con cinta tricolor">
+      </div>
+      <div class="hero-sticker sticker-arpa" data-aos="fade-down-left" data-aos-duration="1000" title="Arpa paraguaya">
+        <img src="images/arpa.png" alt="Arpa paraguaya">
+      </div>
+      <div class="hero-sticker sticker-terere" data-aos="fade-up-right" data-aos-duration="1000" title="Tereré">
+        <img src="images/mate.png" alt="Tereré tradicional">
+      </div>
+      <div class="hero-sticker sticker-nanduti" data-aos="fade-up-left" data-aos-duration="1000" title="Ñandutí">
+        <img src="images/ñanduti.png" alt="Ñandutí paraguayo">
+      </div>
+    </div>
+
     <!-- Recortes de fondo atenuados -->
     <div class="scrap-paper scrap-newspaper" aria-hidden="true"></div>
     <div class="scrap-paper scrap-notebook" aria-hidden="true"></div>
 
     <div class="hero-content">
       <div class="shadow-wrapper title-shadow">
+        <!-- Patrón circular de Ñandutí centrado detrás del logotipo -->
+        <div class="hero-nanduti-logo-bg" aria-hidden="true"></div>
         <div class="hero-title-card">
           <h1 class="hero-title" data-aos="fade-down" data-aos-duration="1000" data-aos-delay="200">Relatos
             Ocultos</h1>
@@ -1917,22 +2268,22 @@
         </div>
       </div>
 
-      <!-- Regreso al Hogar (Centro) -->
+      <!-- El Infierno Verde (Centro) -->
       <div class="shadow-wrapper collage-item-wrapper item-center" data-aos="fade-up" data-aos-duration="1000"
         data-aos-delay="500">
         <div class="photo-frame torn-photo-center">
-          <div class="landmark-illustration" aria-label="Regreso al Hogar, ALTO PARANÁ" role="img">
-            <img src="images/NL2.jpg" alt="Regreso al Hogar" />
+          <div class="landmark-illustration" aria-label="El Infierno Verde, ALTO PARANÁ" role="img">
+            <img src="images/NL2.png" alt="El Infierno Verde" />
           </div>
         </div>
       </div>
 
-      <!-- El Karãu (Derecha) -->
+      <!-- Ecos del Llanto (Derecha) -->
       <div class="shadow-wrapper collage-item-wrapper item-right-photo" data-aos="fade-left" data-aos-duration="1000"
         data-aos-delay="800">
         <div class="photo-frame torn-photo-right">
-          <div class="landmark-illustration" aria-label="El Karãu, ESTEROS" role="img">
-            <img src="images/NL3.png" alt="El Karãu" />
+          <div class="landmark-illustration" aria-label="Ecos del Llanto, ESTEROS" role="img">
+            <img src="images/NL3.png" alt="Ecos del Llanto" />
           </div>
         </div>
       </div>
@@ -2027,7 +2378,7 @@
                 <span class="story-badge">Nivel 1</span>
                 <div class="story-image-wrap">
                   <div class="landmark-illustration" aria-label="CHACO PARAGUAYO" role="img">
-                    <img src="images/Camino_a_la_Fiesta.png" alt="Camino a la Fiesta" />
+                    <img src="images/Camino_a_la_Fiesta.png" alt="Camino a la Fiesta">
                   </div>
                 </div>
                 <span class="story-location">CHACO PARAGUAYO</span>
@@ -2048,12 +2399,12 @@
               <article class="story-card">
                 <span class="story-badge">Nivel 2</span>
                 <div class="story-image-wrap">
-                  <div class="landmark-illustration" aria-label="Regreso al Hogar, ALTO PARANÁ" role="img">
-                    <img src="images/Regreso_al_Hogar.jpg" alt="Regreso al Hogar" />
+                  <div class="landmark-illustration" aria-label="El Infierno Verde, ALTO PARANÁ" role="img">
+                    <img src="images/El_Infierno_Verde.png" alt="El Infierno Verde" />
                   </div>
                 </div>
                 <span class="story-location">ALTO PARANÁ</span>
-                <h3 class="story-title">Regreso al Hogar</h3>
+                <h3 class="story-title">El Infierno Verde</h3>
                 <p class="story-desc">Escapa de los yerbales del Alto Paraná y experimenta la dura
                   realidad de la
                   explotación laboral del siglo XIX.</p>
@@ -2070,12 +2421,12 @@
               <article class="story-card">
                 <span class="story-badge">Nivel 3</span>
                 <div class="story-image-wrap">
-                  <div class="landmark-illustration" aria-label="El Karãu, ESTEROS" role="img">
-                    <img src="images/NL3.png" alt="El Karãu" />
+                  <div class="landmark-illustration" aria-label="Ecos del Llanto, ESTEROS" role="img">
+                    <img src="images/Ecos_del_Llanto.png" alt="Ecos del Llanto" />
                   </div>
                 </div>
                 <span class="story-location">ESTEROS</span>
-                <h3 class="story-title">El Karãu</h3>
+                <h3 class="story-title">Ecos del Llanto</h3>
                 <p class="story-desc">Karãu era un joven apuesto, buen bailarín y cantor, que vivía
                   cuidando a su madre
                   enferma. Una noche salió a buscarle un remedio, pero se dejó llevar por el baile.
@@ -2092,10 +2443,10 @@
     </section>
 
     <!-- Sección Crear un Juego / Muestra del constructor de historias -->
-    <section id="nuestroobjetivo" class="builder">
+    <section id="paraque" class="builder">
       <div class="about-inner" data-aos="fade-up" data-aos-duration="1000">
         <div class="about-paper-card">
-          <h2 class="section-title">Nuestro Objetivo</h2>
+          <h2 class="section-title">¿Para que de nuestro Proyecto?</h2>
           <div class="divider" aria-hidden="true"></div>
           <p class="about-text" style="max-width: 700px; margin: 1.5rem auto 0; font-weight: 600;">
             Queremos que seas parte del desarrollo. Relatos Ocultos cuenta con un completo editor de
@@ -2110,7 +2461,6 @@
           <!-- Lado Izquierdo: Información dinámica -->
           <div class="journal-left">
             <h3 class="builder-title">¿Cómo se vive la historia?</h3>
-            <div class="divider" aria-hidden="true" style="margin: 0.8rem 0 1.2rem; width: 100px;"></div>
 
             <div id="dynamic-level-content" style="transition: opacity 0.25s ease; opacity: 1;">
               <p class="builder-desc"
@@ -2295,12 +2645,61 @@
     <section id="descarga" class="download">
       <h2 class="section-title" data-aos="fade-up">Comienza tu Relato</h2>
       <p class="download-text" data-aos="fade-up" data-aos-delay="100">
-        Descarga el juego gratis y experimenta los relatos interactivos desde tu PC.
+        Descarga el juego gratis y experimenta los relatos interactivos. Elige la plataforma desde la que deseas
+        disfrutar de la experiencia.
       </p>
 
-      <div class="btn-download-container" data-aos="fade-up" data-aos-delay="300">
-        <a class="btn btn-primary" onclick="alert('Iniciando descarga para Windows PC...')">Descargar para
-          PC</a>
+
+      <div class="download-cards-container">
+        <!-- Windows -->
+        <div class="download-card" data-aos="fade-up" data-aos-duration="800" data-aos-delay="200">
+          <div class="download-card-icon-wrapper win-brand-color">
+            <svg class="download-card-icon" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <title>Windows</title>
+              <path fill="currentColor"
+                d="M0 0h11.455v11.455H0V0zm12.545 0H24v11.455h-11.455V0zM0 12.545h11.455V24H0V12.545zm12.545 0H24V24h-11.455V12.545z" />
+            </svg>
+          </div>
+          <h3 class="download-card-title">Windows</h3>
+          <p class="download-card-description">Versión completa para PC.</p>
+          <a href="JUEGO.rar" class="btn btn-windows">
+            Descargar para Windows
+          </a>
+        </div>
+
+        <!-- itch.io -->
+        <div class="download-card" data-aos="fade-up" data-aos-duration="800" data-aos-delay="300">
+          <div class="download-card-icon-wrapper itch-brand-color">
+            <svg class="download-card-icon" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <title>Itch.io</title>
+              <path fill="currentColor"
+                d="M3.13 1.338C2.08 1.96.02 4.328 0 4.95v1.03c0 1.303 1.22 2.45 2.325 2.45 1.33 0 2.436-1.102 2.436-2.41 0 1.308 1.07 2.41 2.4 2.41 1.328 0 2.362-1.102 2.362-2.41 0 1.308 1.137 2.41 2.466 2.41h.024c1.33 0 2.466-1.102 2.466-2.41 0 1.308 1.034 2.41 2.363 2.41 1.33 0 2.4-1.102 2.4-2.41 0 1.308 1.106 2.41 2.435 2.41C22.78 8.43 24 7.282 24 5.98V4.95c-.02-.62-2.082-2.99-3.13-3.612-3.253-.114-5.508-.134-8.87-.133-3.362 0-7.945.053-8.87.133zm6.376 6.477a2.74 2.74 0 0 1-.468.602c-.5.49-1.19.795-1.947.795a2.786 2.786 0 0 1-1.95-.795c-.182-.178-.32-.37-.446-.59-.127.222-.303.412-.486.59a2.788 2.788 0 0 1-1.95.795c-.092 0-.187-.025-.264-.052-.107 1.113-.152 2.176-.168 2.95v.005l-.006 1.167c.02 2.334-.23 7.564 1.03 8.85 1.952.454 5.545.662 9.15.663 3.605 0 7.198-.21 9.15-.664 1.26-1.284 1.01-6.514 1.03-8.848l-.006-1.167v-.004c-.016-.775-.06-1.838-.168-2.95-.077.026-.172.052-.263.052a2.788 2.788 0 0 1-1.95-.795c-.184-.178-.36-.368-.486-.59-.127.22-.265.412-.447.59a2.786 2.786 0 0 1-1.95.794c-.76 0-1.446-.303-1.948-.793a2.74 2.74 0 0 1-.468-.602 2.738 2.738 0 0 1-.463.602 2.787 2.787 0 0 1-1.95.794h-.16a2.787 2.787 0 0 1-1.95-.793 2.738 2.738 0 0 1-.464-.602zm-2.004 2.59v.002c.795.002 1.5 0 2.373.953.687-.072 1.406-.108 2.125-.107.72 0 1.438.035 2.125.107.873-.953 1.578-.95 2.372-.953.376 0 1.876 0 2.92 2.934l1.123 4.028c.832 2.995-.266 3.068-1.636 3.07-2.03-.075-3.156-1.55-3.156-3.025-1.124.184-2.436.276-3.748.277-1.312 0-2.624-.093-3.748-.277 0 1.475-1.125 2.95-3.156 3.026-1.37-.004-2.468-.077-1.636-3.072l1.122-4.027c1.045-2.934 2.545-2.934 2.92-2.934zM12 12.714c-.002.002-2.14 1.964-2.523 2.662l1.4-.056v1.22c0 .056.56.033 1.123.007.562.026 1.124.05 1.124-.008v-1.22l1.4.055C14.138 14.677 12 12.713 12 12.713z" />
+            </svg>
+          </div>
+          <h3 class="download-card-title">itch.io</h3>
+          <p class="download-card-description">Juega desde nuestra página oficial.</p>
+          <a href="https://miguel-by2009.itch.io/relatos-ocultos" target="_blank" rel="noopener noreferrer"
+            class="btn btn-itch">
+            Disponible en itch.io
+          </a>
+        </div>
+
+        <!-- Android -->
+        <div class="download-card" data-aos="fade-up" data-aos-duration="800" data-aos-delay="400">
+          <div class="download-card-icon-wrapper android-brand-color">
+            <svg class="download-card-icon" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <title>Android</title>
+              <path fill="currentColor"
+                d="M18.4395 5.5586c-.675 1.1664-1.352 2.3318-2.0274 3.498-.0366-.0155-.0742-.0286-.1113-.043-1.8249-.6957-3.484-.8-4.42-.787-1.8551.0185-3.3544.4643-4.2597.8203-.084-.1494-1.7526-3.021-2.0215-3.4864a1.1451 1.1451 0 0 0-.1406-.1914c-.3312-.364-.9054-.4859-1.379-.203-.475.282-.7136.9361-.3886 1.5019 1.9466 3.3696-.0966-.2158 1.9473 3.3593.0172.031-.4946.2642-1.3926 1.0177C2.8987 12.176.452 14.772 0 18.9902h24c-.119-1.1108-.3686-2.099-.7461-3.0683-.7438-1.9118-1.8435-3.2928-2.7402-4.1836a12.1048 12.1048 0 0 0-2.1309-1.6875c.6594-1.122 1.312-2.2559 1.9649-3.3848.2077-.3615.1886-.7956-.0079-1.1191a1.1001 1.1001 0 0 0-.8515-.5332c-.5225-.0536-.9392.3128-1.0488.5449zm-.0391 8.461c.3944.5926.324 1.3306-.1563 1.6503-.4799.3197-1.188.0985-1.582-.4941-.3944-.5927-.324-1.3307.1563-1.6504.4727-.315 1.1812-.1086 1.582.4941zM7.207 13.5273c.4803.3197.5506 1.0577.1563 1.6504-.394.5926-1.1038.8138-1.584.4941-.48-.3197-.5503-1.0577-.1563-1.6504.4008-.6021 1.1087-.8106 1.584-.4941z" />
+            </svg>
+          </div>
+          <h3 class="download-card-title">Android</h3>
+          <p class="download-card-description">Descarga el archivo APK para dispositivos Android.</p>
+          <a href="base.apk" class="btn btn-android">
+            Descargar <br> APK
+          </a>
+        </div>
+      </div>
     </section>
   </main>
 
@@ -2403,7 +2802,7 @@
       'inicio': 'nav-inicio',
       'descripcion': 'nav-inicio',   // La sección de descripción no tiene nav propio → asigna a Inicio
       'historias': 'nav-historias',
-      'nuestroobjetivo': 'nav-nuestroobjetivo',
+      'paraque': 'nav-paraque',
       'equipo': 'nav-equipo',
       'descarga': 'nav-descarga',
     };
@@ -2456,8 +2855,8 @@
       },
       2: {
         number: "Nivel 2",
-        title: "Regreso al Hogar",
-        caption: "Regreso al Hogar",
+        title: "El Infierno Verde",
+        caption: "El Infierno Verde",
         bullets: [
           "Aprender sobre el régimen de explotación laboral de los yerbales en el siglo XIX.",
           "Conocer los peligros y la geografía de las selvas del Alto Paraná.",
@@ -2468,8 +2867,8 @@
       },
       3: {
         number: "Nivel 3",
-        title: "El Karãu",
-        caption: "El Karãu",
+        title: "Ecos del Llanto",
+        caption: "Ecos del Llanto",
         bullets: [
           "El camino que transcurre Karãu",
           "El elemento del propósito inicial de Karãu",
