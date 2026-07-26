@@ -6,15 +6,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Expediente Histórico - Relatos Ocultos</title>
   <meta name="description"
-    content="Amplía el contexto histórico de los relatos de Relatos Ocultos: leyendas, literatura y hechos reales del Paraguay.">
+    content="Libro histórico interactivo de Relatos Ocultos: leyendas, literatura y hechos reales del Paraguay narrados con rigor editorial.">
 
   <!-- Preconectar a Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-  <!-- Google Fonts: Cinzel (encabezados), Lora (cuerpo de texto con serifa legible), Montserrat (interfaz sin serifa) -->
+  <!-- Google Fonts: Cinzel Decorative, Cinzel, Lora, Montserrat -->
   <link
-    href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cinzel:wght@400;600;700&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Montserrat:wght@300;400;500;600;700;800&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cinzel:wght@400;600;700;800&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Montserrat:wght@300;400;500;600;700;800&display=swap"
     rel="stylesheet">
 
   <style>
@@ -37,7 +37,7 @@
       --gold-light: #ebd09b;
       --red-old: #9e2a1b;
       --white-torn: #fdfbf7;
-      --shadow-color: rgba(28, 18, 12, 0.15);
+      --shadow-color: rgba(28, 18, 12, 0.2);
     }
 
     html {
@@ -52,9 +52,9 @@
       background-attachment: fixed;
       color: var(--ink);
       overflow-x: hidden;
-      font-size: 1.15rem;
-      line-height: 1.75;
-      padding: 2rem 1rem;
+      font-size: 1.2rem;
+      line-height: 1.85;
+      padding: 2.5rem 1.5rem;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
@@ -62,7 +62,7 @@
       justify-content: flex-start;
     }
 
-    /* Capa superpuesta de textura de papel con líneas de barrido */
+    /* Capa superpuesta de textura de papel con líneas de barrido sutiles */
     body::before {
       content: '';
       position: fixed;
@@ -75,17 +75,17 @@
       z-index: 999;
     }
 
-    /* Estilo de enfoque de accesibilidad */
+    /* Estilo de enfoque para accesibilidad */
     a:focus-visible,
     button:focus-visible {
       outline: 3px double var(--gold);
       outline-offset: 4px;
     }
 
-    /* ENCABEZADO / NAVEGACIÓN HACIA ATRÁS */
+    /* ENCABEZADO / NAVEGACIÓN SUPERIOR */
     .top-nav {
       width: 100%;
-      max-width: 1000px;
+      max-width: 1350px;
       margin-bottom: 2.5rem;
       display: flex;
       justify-content: flex-start;
@@ -94,26 +94,26 @@
     .btn-back {
       display: inline-flex;
       align-items: center;
-      gap: 0.5rem;
+      gap: 0.6rem;
       font-family: 'Montserrat', sans-serif;
-      font-size: 1.0625rem;
+      font-size: 1.1rem;
       font-weight: 800;
       text-transform: uppercase;
       letter-spacing: 0.12em;
       color: var(--sepia-dark);
       text-decoration: none;
-      border: 1px solid var(--parchment-darker);
+      border: 2px solid var(--parchment-darker);
       background: var(--white-torn);
-      padding: 0.75rem 1.5rem;
+      padding: 0.85rem 1.8rem;
       border-radius: 4px;
-      box-shadow: 0 3px 0 var(--parchment-darker);
-      transition: transform 0.1s ease, background 0.2s ease, box-shadow 0.1s ease;
+      box-shadow: 0 4px 0 var(--parchment-darker);
+      transition: transform 0.15 ease, background 0.2s ease, box-shadow 0.15s ease;
     }
 
     .btn-back:hover {
       background: #ffffff;
-      transform: translateY(-1px);
-      box-shadow: 0 4px 0 var(--parchment-darker);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 0 var(--parchment-darker);
     }
 
     .btn-back:active {
@@ -121,260 +121,537 @@
       box-shadow: none;
     }
 
-    /* CONTENEDOR PRINCIPAL: CARPETA ABIERTA / DISEÑO DE DIARIO */
+    /* ENVOLTURA PRINCIPAL DEL LIBRO HISTÓRICO (+25% Escalado) */
     .folder-wrapper {
       width: 100%;
-      max-width: 1000px;
-      filter: drop-shadow(0 15px 30px rgba(28, 18, 12, 0.25));
+      max-width: 1350px;
+      filter: drop-shadow(0 20px 40px rgba(28, 18, 12, 0.35));
       margin-bottom: 4rem;
       flex-grow: 1;
       display: flex;
     }
 
+    /* EL LIBRO ABIERTO - MAQUETACIÓN SIMÉTRICA DE DOBLE PÁGINA */
     .folder {
       background: var(--white-torn);
-      border: 2px solid var(--parchment-darker);
+      border: 3px solid var(--parchment-darker);
       outline: 4px double var(--gold);
-      outline-offset: -6px;
-      border-radius: 4px;
-      padding: 3.5rem;
+      outline-offset: -10px;
+      border-radius: 6px;
+      padding: 4rem 4.5rem;
       width: 100%;
       display: grid;
-      grid-template-columns: 1.1fr 0.9fr;
-      gap: 4rem;
+      grid-template-columns: 1fr 1fr;
+      /* Exactamente el mismo ancho para ambas páginas */
+      gap: 4.5rem;
       position: relative;
       background-image: radial-gradient(circle at 50% 0%, rgba(0, 0, 0, 0.01) 0%, rgba(0, 0, 0, 0.04) 100%);
+      box-shadow: inset 0 0 60px rgba(117, 85, 55, 0.08);
       transition: opacity 0.3s ease;
+      align-items: stretch;
     }
 
-    /* Sombra de encuadernación del lomo del libro */
+    /* Lomo del libro perfectamente centrado al 50% con sombreado de encuadernación */
     .folder::after {
       content: '';
       position: absolute;
       top: 0;
       bottom: 0;
-      left: 55%;
-      width: 40px;
+      left: 50%;
+      width: 50px;
       transform: translateX(-50%);
-      background: linear-gradient(90deg, rgba(0, 0, 0, 0.04) 0%, rgba(0, 0, 0, 0.12) 50%, rgba(0, 0, 0, 0.04) 100%);
-      border-left: 1px dashed rgba(117, 85, 55, 0.15);
-      border-right: 1px dashed rgba(117, 85, 55, 0.15);
+      background: linear-gradient(90deg,
+          rgba(0, 0, 0, 0.03) 0%,
+          rgba(0, 0, 0, 0.12) 42%,
+          rgba(0, 0, 0, 0.22) 50%,
+          rgba(0, 0, 0, 0.12) 58%,
+          rgba(0, 0, 0, 0.03) 100%);
+      border-left: 2px dashed rgba(117, 85, 55, 0.25);
+      border-right: 2px dashed rgba(117, 85, 55, 0.25);
       pointer-events: none;
     }
 
-    /* PÁGINA IZQUIERDA - EL ARCHIVO ESCRITO */
-    .archive-left {
+    /* SECCIONES DE PÁGINAS (IZQUIERDA Y DERECHA) */
+    .archive-left,
+    .archive-right {
       display: flex;
       flex-direction: column;
       justify-content: flex-start;
+      gap: 2.2rem;
     }
 
+    /* CABECERA DEL EXPEDIENTE */
     .expediente-header {
       border-bottom: 2px solid var(--gold);
-      padding-bottom: 1rem;
-      margin-bottom: 1.8rem;
+      padding-bottom: 1.2rem;
+      margin-bottom: 1rem;
     }
 
     .expediente-meta {
       font-family: 'Montserrat', sans-serif;
-      font-size: 0.7rem;
+      font-size: 0.85rem;
       font-weight: 800;
       color: var(--red-old);
       text-transform: uppercase;
-      letter-spacing: 0.15em;
-      margin-bottom: 0.3rem;
+      letter-spacing: 0.18em;
+      margin-bottom: 0.4rem;
     }
 
     .expediente-title {
       font-family: 'Cinzel Decorative', serif;
-      font-size: clamp(1.9rem, 5vw, 2.85rem);
+      font-size: clamp(2.3rem, 4vw, 3.3rem);
       font-weight: 700;
       color: var(--sepia-dark);
       line-height: 1.2;
+      margin-bottom: 0.4rem;
+    }
+
+    .story-subtitle-main {
+      font-family: 'Lora', serif;
+      font-style: italic;
+      font-size: 1.25rem;
+      color: var(--sepia-dark);
+      line-height: 1.6;
+      margin-bottom: 0.8rem;
     }
 
     .expediente-details {
       display: flex;
-      gap: 1.5rem;
+      flex-wrap: wrap;
+      gap: 1.8rem;
       font-family: 'Montserrat', sans-serif;
-      font-size: 0.72rem;
-      font-weight: 600;
+      font-size: 0.82rem;
+      font-weight: 700;
       color: var(--sepia);
       text-transform: uppercase;
-      letter-spacing: 0.05em;
-      margin-top: 0.4rem;
+      letter-spacing: 0.08em;
+      margin-top: 0.6rem;
     }
 
     .expediente-details span {
       display: flex;
       align-items: center;
-      gap: 0.3rem;
+      gap: 0.4rem;
     }
 
-    .section-subtitle {
+    /* ENCABEZADOS Y NARRATIVA */
+    .bold-heading {
       font-family: 'Cinzel', serif;
-      font-size: 1.5rem;
+      font-size: 1.45rem;
       font-weight: 700;
       color: var(--sepia-dark);
-      margin-bottom: 1.25rem;
+      margin-top: 1.8rem;
+      margin-bottom: 0.8rem;
       display: flex;
       align-items: center;
-      gap: 0.5rem;
-      border-bottom: 1px dashed var(--parchment-darker);
-      padding-bottom: 0.3rem;
+      gap: 0.6rem;
+      border-bottom: 1px dashed var(--gold-light);
+      padding-bottom: 0.4rem;
     }
 
-    .section-subtitle svg {
-      width: 1.1rem;
-      height: 1.1rem;
-      stroke: currentColor;
+    .bold-heading strong {
+      color: var(--sepia-dark);
+    }
+
+    .heading-ornament {
+      color: var(--gold);
+      font-size: 1rem;
     }
 
     .narrative-p {
-      font-size: 1.125rem;
-      line-height: 1.75;
-      margin-bottom: 2.1rem;
-      text-align: left;
+      font-size: 1.2rem;
+      line-height: 1.85;
+      margin-bottom: 1.6rem;
+      text-align: justify;
       color: var(--ink);
-      text-indent: 1.5rem;
-      max-width: 75ch;
+      text-indent: 1.8rem;
     }
 
-    /* Letra capital inicial */
+    /* Letra capital inicial para la primera palabra */
     .narrative-p:first-of-type::first-letter {
       font-family: 'Cinzel Decorative', serif;
-      font-size: 3.2rem;
+      font-size: 3.8rem;
       float: left;
-      line-height: 0.8;
+      line-height: 0.75;
       margin-top: 0.2rem;
-      margin-right: 0.5rem;
+      margin-right: 0.6rem;
       color: var(--red-old);
       font-weight: 700;
-      border: 1px solid var(--parchment-darker);
-      padding: 0.3rem 0.5rem;
+      border: 2px solid var(--parchment-darker);
+      padding: 0.4rem 0.6rem;
       background: var(--parchment-dark);
       clip-path: polygon(4% 2%, 96% 6%, 92% 94%, 8% 90%);
+      box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
     }
 
-    .context-box {
-      margin-top: 1rem;
+    /* CAJAS INFORMATIVAS TEMÁTICAS */
+    .info-card {
+      background: rgba(197, 155, 39, 0.07);
+      border: 1px solid var(--parchment-darker);
+      border-left: 5px solid var(--gold);
+      padding: 1.4rem 1.6rem;
+      border-radius: 4px;
+      margin: 1.8rem 0;
+      box-shadow: 0 4px 10px rgba(28, 18, 12, 0.04);
     }
 
-    .context-p {
-      font-style: italic;
-      color: #3b281b;
-      line-height: 1.75;
-      font-size: 1.0625rem;
-      text-align: left;
-      max-width: 75ch;
+    .info-card.reflexion {
+      background: rgba(158, 42, 27, 0.06);
+      border-left-color: var(--red-old);
     }
 
-    /* PÁGINA DERECHA - ILUSTRACIÓN, JUGABILIDAD Y FUENTES */
-    .archive-right {
+    .info-card.dato-historico {
+      background: rgba(117, 85, 55, 0.08);
+      border-left-color: var(--sepia);
+    }
+
+    .info-card.gastronomia {
+      background: rgba(184, 115, 51, 0.08);
+      border-left-color: #b87333;
+    }
+
+    .info-card.fauna {
+      background: rgba(46, 117, 89, 0.08);
+      border-left-color: #2e7559;
+    }
+
+    .info-card-header {
       display: flex;
-      flex-direction: column;
-      gap: 2rem;
+      align-items: center;
+      gap: 0.6rem;
+      margin-bottom: 0.5rem;
     }
 
-    /* Marco de fotos estilo Polaroid con bordes rasgados */
+    .info-card-icon {
+      font-size: 1.3rem;
+    }
+
+    .info-card-title {
+      font-family: 'Cinzel', serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--sepia-dark);
+    }
+
+    .info-card-text {
+      font-family: 'Lora', serif;
+      font-size: 1.1rem;
+      line-height: 1.7;
+      color: var(--ink);
+    }
+
+    /* BLOQUES DE CITA */
+    .quote-card {
+      position: relative;
+      background: rgba(253, 251, 247, 0.9);
+      border: 1px solid var(--gold-light);
+      border-left: 5px solid var(--red-old);
+      padding: 1.6rem 2rem 1.6rem 3.8rem;
+      margin: 2.2rem 0;
+      border-radius: 4px;
+      box-shadow: 0 4px 12px rgba(28, 18, 12, 0.05);
+    }
+
+    .quote-mark {
+      position: absolute;
+      top: -0.2rem;
+      left: 1rem;
+      font-family: 'Cinzel Decorative', serif;
+      font-size: 4rem;
+      color: rgba(158, 42, 27, 0.25);
+      line-height: 1;
+    }
+
+    .quote-card p {
+      font-family: 'Lora', serif;
+      font-style: italic;
+      font-size: 1.25rem;
+      line-height: 1.75;
+      color: var(--sepia-dark);
+      margin: 0;
+    }
+
+    /* RECUADRO FINAL "PARA TENER EN CUENTA" */
+    .summary-card {
+      background: var(--white-torn);
+      border: 2px double var(--gold);
+      outline: 1px solid var(--parchment-darker);
+      outline-offset: -6px;
+      padding: 2rem;
+      margin-top: 2.5rem;
+      border-radius: 4px;
+      box-shadow: 0 6px 18px rgba(28, 18, 12, 0.06);
+    }
+
+    .summary-header {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      border-bottom: 1px dashed var(--parchment-darker);
+      padding-bottom: 0.6rem;
+      margin-bottom: 1rem;
+    }
+
+    .summary-header svg {
+      stroke: var(--red-old);
+    }
+
+    .summary-header h4 {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: 1.25rem;
+      color: var(--sepia-dark);
+    }
+
+    .summary-card p {
+      font-family: 'Lora', serif;
+      font-size: 1.15rem;
+      line-height: 1.8;
+      color: var(--ink);
+      margin: 0;
+    }
+
+    /* LÍNEA DEL TIEMPO ELEGANTE (RELATO 2) */
+    .timeline-card {
+      background: var(--white-torn);
+      border: 2px solid var(--parchment-darker);
+      border-radius: 4px;
+      padding: 2rem;
+      box-shadow: inset 0 0 20px rgba(117, 85, 55, 0.04);
+      margin: 2rem 0;
+    }
+
+    .timeline-title {
+      font-family: 'Cinzel', serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--sepia-dark);
+      border-bottom: 1px double var(--parchment-darker);
+      padding-bottom: 0.6rem;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .timeline-title svg {
+      stroke: var(--red-old);
+    }
+
+    .timeline-list {
+      position: relative;
+      padding-left: 1.8rem;
+    }
+
+    .timeline-list::before {
+      content: '';
+      position: absolute;
+      left: 7px;
+      top: 6px;
+      bottom: 6px;
+      width: 2px;
+      background: var(--gold);
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 1.4rem;
+    }
+
+    .timeline-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .timeline-marker {
+      position: absolute;
+      left: -1.8rem;
+      top: 4px;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: var(--red-old);
+      border: 2px solid var(--white-torn);
+      box-shadow: 0 0 0 2px var(--gold);
+    }
+
+    .timeline-year {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 800;
+      color: var(--red-old);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      display: block;
+      margin-bottom: 0.2rem;
+    }
+
+    .timeline-desc {
+      font-family: 'Lora', serif;
+      font-size: 1.05rem;
+      line-height: 1.6;
+      color: var(--ink);
+    }
+
+    /* PÁGINA DERECHA - ELEMENTOS MULTIMEDIA Y REGISTRO */
+
+    /* Marco de foto histórica estilo antiguo */
     .photo-frame {
       background: var(--white-torn);
-      padding: 0.8rem 0.8rem 2.2rem 0.8rem;
-      border: 1px solid rgba(28, 18, 12, 0.15);
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+      padding: 1.2rem 1.2rem 2.2rem 1.2rem;
+      border: 2px solid rgba(117, 85, 55, 0.3);
+      box-shadow: 0 8px 20px rgba(28, 18, 12, 0.12);
       width: 100%;
-      transform: rotate(1deg);
+      border-radius: 3px;
+      position: relative;
     }
 
     .photo-frame img {
       width: 100%;
-      height: 220px;
+      height: 290px;
       object-fit: cover;
       display: block;
-      border: 1px solid rgba(0, 0, 0, 0.05);
+      border: 1px solid rgba(0, 0, 0, 0.1);
       clip-path: url(#torn-photo-1);
     }
 
     .photo-caption {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: 'Lora', serif;
       font-style: italic;
-      font-weight: 700;
+      font-weight: 600;
       text-align: center;
-      margin-top: 0.8rem;
+      margin-top: 1rem;
       color: var(--sepia-dark);
-      font-size: 0.95rem;
-      letter-spacing: 0.02em;
+      font-size: 1.05rem;
+      line-height: 1.5;
     }
 
-    /* SECCIÓN DE ENLACE DE JUGABILIDAD */
-    .gameplay-box {
-      background: rgba(117, 85, 55, 0.05);
-      border-left: 4px solid var(--gold);
-      padding: 1.2rem;
-      border-radius: 2px;
+    /* NUEVA TARJETA INTEGRADA: MÚSICA DEL RELATO */
+    .music-card {
+      background: var(--white-torn);
+      border: 2px solid var(--parchment-darker);
+      border-radius: 4px;
+      padding: 2rem;
+      box-shadow: 0 6px 18px rgba(28, 18, 12, 0.08), inset 0 0 20px rgba(117, 85, 55, 0.04);
+      position: relative;
+      outline: 1px solid rgba(197, 155, 39, 0.4);
+      outline-offset: -6px;
     }
 
-    .gameplay-title {
-      font-family: 'Montserrat', sans-serif;
-      font-size: 0.85rem;
-      font-weight: 800;
+    .music-card-header {
+      font-family: 'Cinzel', serif;
+      font-size: 1.25rem;
+      font-weight: 700;
       color: var(--sepia-dark);
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      margin-bottom: 0.6rem;
+      border-bottom: 1px double var(--parchment-darker);
+      padding-bottom: 0.6rem;
+      margin-bottom: 1.4rem;
       display: flex;
       align-items: center;
-      gap: 0.4rem;
+      gap: 0.6rem;
     }
 
-    .gameplay-title svg {
-      width: 1rem;
-      height: 1rem;
-      stroke: currentColor;
+    .music-card-header svg {
+      stroke: var(--red-old);
     }
 
-    .gameplay-list {
-      list-style: none;
-      padding-left: 0.5rem;
+    .music-meta-container {
+      display: flex;
+      gap: 1.4rem;
+      align-items: center;
+      margin-bottom: 1.4rem;
     }
 
-    .gameplay-list li {
-      font-size: 1.0625rem;
-      margin-bottom: 0.75rem;
+    .music-cover-wrapper {
       position: relative;
-      padding-left: 1.2rem;
-      color: var(--ink);
-    }
-
-    .gameplay-list li::before {
-      content: '✦';
-      position: absolute;
-      left: 0;
-      color: var(--gold);
-      font-size: 0.8rem;
-      top: -1px;
-    }
-
-    /* FUENTES AL ESTILO DE TARJETA DE CATÁLOGO */
-    .catalog-card {
-      background: #fdfbf7;
+      width: 100px;
+      height: 100px;
+      flex-shrink: 0;
+      border-radius: 6px;
+      overflow: hidden;
       border: 2px solid var(--parchment-darker);
-      border-radius: 2px;
-      padding: 1.5rem;
-      box-shadow: inset 0 0 15px rgba(117, 85, 55, 0.05);
-      position: relative;
-      transform: rotate(-0.5deg);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     }
 
-    /* Agujero de índice de tarjeta de catálogo que representa ficheros de tarjetas antiguos */
+    .music-cover-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .music-info {
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+    }
+
+    .music-info h4 {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: 1.25rem;
+      color: var(--sepia-dark);
+      line-height: 1.3;
+    }
+
+    .music-artist {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--sepia);
+      margin-bottom: 0.4rem;
+    }
+
+    .music-badge {
+      display: inline-block;
+      align-self: flex-start;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.68rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      background: var(--red-old);
+      color: var(--white-torn);
+      padding: 0.25rem 0.6rem;
+      border-radius: 3px;
+    }
+
+    .music-player-wrapper video {
+      width: 100%;
+      border-radius: 4px;
+      border: 2px solid var(--parchment-darker);
+      background: var(--sepia-dark);
+      margin-bottom: 1.2rem;
+      outline: none;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    }
+
+    .music-explanation {
+      font-family: 'Lora', serif;
+      font-style: italic;
+      font-size: 1.05rem;
+      line-height: 1.7;
+      color: #3b281b;
+      background: rgba(117, 85, 55, 0.06);
+      padding: 1.2rem;
+      border-left: 4px solid var(--gold);
+      border-radius: 2px;
+    }
+
+    /* MEJORADO REGISTRO DE ARCHIVO / CATALOG CARD */
+    .catalog-card {
+      background: var(--white-torn);
+      border: 2px solid var(--parchment-darker);
+      border-radius: 3px;
+      padding: 2rem;
+      box-shadow: inset 0 0 20px rgba(117, 85, 55, 0.05);
+      position: relative;
+    }
+
     .catalog-card::before {
       content: '';
       position: absolute;
-      bottom: 12px;
+      bottom: 14px;
       left: 50%;
       transform: translateX(-50%);
-      width: 14px;
-      height: 14px;
+      width: 16px;
+      height: 16px;
       border-radius: 50%;
       border: 2.5px solid var(--parchment-darker);
       background: var(--white-torn);
@@ -382,43 +659,49 @@
 
     .catalog-header {
       font-family: 'Montserrat', sans-serif;
-      font-size: 0.65rem;
-      font-weight: 700;
+      font-size: 0.78rem;
+      font-weight: 800;
       letter-spacing: 0.15em;
       color: var(--sepia);
       text-transform: uppercase;
-      border-bottom: 1px double var(--parchment-darker);
-      padding-bottom: 0.4rem;
-      margin-bottom: 0.8rem;
+      border-bottom: 2px double var(--parchment-darker);
+      padding-bottom: 0.6rem;
+      margin-bottom: 1.2rem;
       display: flex;
       justify-content: space-between;
+      align-items: center;
     }
 
     .catalog-grid {
       display: grid;
-      grid-template-columns: 80px 1fr;
-      gap: 0.4rem;
+      grid-template-columns: 100px 1fr;
+      gap: 0.8rem;
       font-family: 'Lora', serif;
-      font-size: 1.0625rem;
-      line-height: 1.55;
+      font-size: 1.1rem;
+      line-height: 1.65;
     }
 
     .catalog-label {
-      font-weight: 700;
+      font-weight: 800;
       color: var(--sepia-dark);
+      font-family: 'Montserrat', sans-serif;
       text-transform: uppercase;
-      font-size: 0.9rem;
-      letter-spacing: 0.02em;
+      font-size: 0.82rem;
+      letter-spacing: 0.05em;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
     }
 
     .catalog-value {
       color: var(--ink);
+      white-space: pre-line;
     }
 
-    /* BARRA DE NAVEGACIÓN INFERIOR */
+    /* NAVEGACIÓN INFERIOR */
     .bottom-nav {
       width: 100%;
-      max-width: 1000px;
+      max-width: 1350px;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -428,26 +711,26 @@
     .nav-arrow-btn {
       display: inline-flex;
       align-items: center;
-      gap: 0.5rem;
+      gap: 0.6rem;
       font-family: 'Montserrat', sans-serif;
-      font-size: 1.0625rem;
+      font-size: 1.1rem;
       font-weight: 800;
       text-transform: uppercase;
       letter-spacing: 0.1em;
       color: var(--parchment);
       background: var(--red-old);
-      border: 1px solid var(--sepia-dark);
-      padding: 0.75rem 1.6rem;
+      border: 2px solid var(--sepia-dark);
+      padding: 0.85rem 1.8rem;
       border-radius: 4px;
-      box-shadow: 0 4px 0 var(--sepia-dark);
+      box-shadow: 0 5px 0 var(--sepia-dark);
       text-decoration: none;
-      transition: transform 0.1s ease, background 0.2s ease, box-shadow 0.1s ease;
+      transition: transform 0.15s ease, background 0.2s ease, box-shadow 0.15s ease;
     }
 
     .nav-arrow-btn:hover {
-      background: #a32214;
-      transform: translateY(-1px);
-      box-shadow: 0 5px 0 var(--sepia-dark);
+      background: #b82b1b;
+      transform: translateY(-2px);
+      box-shadow: 0 7px 0 var(--sepia-dark);
     }
 
     .nav-arrow-btn:active {
@@ -464,58 +747,70 @@
       pointer-events: none;
     }
 
-    /* DISEÑO RESPONSIVO */
-    @media (max-width: 900px) {
+    /* DISEÑO RESPONSIVO PERFECTO */
+    @media (max-width: 1100px) {
       .folder {
         grid-template-columns: 1fr;
-        gap: 3rem;
-        padding: 2.2rem;
+        gap: 3.5rem;
+        padding: 3rem 2.5rem;
       }
 
       .folder::after {
+        top: auto;
+        bottom: auto;
+        left: 0;
+        right: 0;
+        width: 100%;
+        height: 20px;
+        transform: none;
+        background: linear-gradient(180deg, rgba(0, 0, 0, 0.05) 0%, rgba(0, 0, 0, 0.15) 50%, rgba(0, 0, 0, 0.05) 100%);
+        border-left: none;
+        border-right: none;
+        border-top: 2px dashed rgba(117, 85, 55, 0.25);
+        border-bottom: 2px dashed rgba(117, 85, 55, 0.25);
         display: none;
       }
 
-      .photo-frame {
-        max-width: 450px;
-        margin: 0 auto;
-      }
-
-      .catalog-card {
-        max-width: 450px;
-        margin: 0 auto;
-        width: 100%;
-      }
-
-      .gameplay-box {
-        max-width: 450px;
+      .photo-frame,
+      .music-card,
+      .catalog-card,
+      .timeline-card {
+        max-width: 100%;
         margin: 0 auto;
         width: 100%;
       }
     }
 
-    @media (max-width: 480px) {
+    @media (max-width: 600px) {
       body {
-        padding: 1rem 0.5rem;
+        padding: 1.5rem 0.8rem;
       }
 
       .folder {
-        padding: 1.5rem 1rem;
+        padding: 2rem 1.2rem;
       }
 
       .expediente-title {
-        font-size: 1.4rem;
+        font-size: 1.8rem;
       }
 
       .expediente-details {
         flex-direction: column;
-        gap: 0.2rem;
+        gap: 0.4rem;
       }
 
       .btn-back,
       .nav-arrow-btn {
-        font-size: 0.85rem;
-        padding: 0.65rem 1.25rem;
+        font-size: 0.9rem;
+        padding: 0.7rem 1.2rem;
+      }
+
+      .quote-card {
+        padding: 1.4rem 1.2rem 1.4rem 2.8rem;
+      }
+
+      .quote-mark {
+        font-size: 2.8rem;
       }
     }
   </style>
@@ -526,7 +821,6 @@
   <!-- Rutas de recorte SVG dinámicas -->
   <svg width="0" height="0" style="position: absolute;">
     <defs>
-      <!-- Variación de recorte de fotos rasgadas 1 -->
       <clipPath id="torn-photo-1" clipPathUnits="objectBoundingBox">
         <path
           d="M0,0 L1,0 L1,0.91 L0.96,0.93 L0.91,0.89 L0.87,0.92 L0.83,0.9 L0.79,0.93 L0.75,0.9 L0.71,0.94 L0.66,0.91 L0.62,0.95 L0.57,0.91 L0.52,0.94 L0.48,0.9 L0.43,0.93 L0.38,0.91 L0.34,0.95 L0.29,0.91 L0.24,0.94 L0.19,0.9 L0.15,0.93 L0.11,0.91 L0.07,0.95 L0,0.9 Z" />
@@ -537,7 +831,7 @@
   <!-- Navegación superior (Volver al archivo principal) -->
   <header class="top-nav">
     <a href="index.html#historias" class="btn-back" aria-label="Volver a la biblioteca principal">
-      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8"
         stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align: middle;">
         <line x1="19" y1="12" x2="5" y2="12"></line>
         <polyline points="12 19 5 12 12 5"></polyline>
@@ -546,17 +840,18 @@
     </a>
   </header>
 
-  <!-- Envoltura de carpeta -->
+  <!-- Envoltura del libro histórico abierto -->
   <main class="folder-wrapper">
     <article class="folder" id="folder-content">
-      <!-- Página izquierda: El texto escrito -->
+      <!-- Página izquierda: Narrativa histórica escrita -->
       <section class="archive-left">
         <div class="expediente-header">
           <p class="expediente-meta" id="story-meta-level">Nivel 1</p>
           <h1 class="expediente-title" id="story-title">Cargando...</h1>
+          <p class="story-subtitle-main" id="story-subtitle">Cargando subtítulo...</p>
           <div class="expediente-details">
             <span>
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
                 stroke-linecap="round" stroke-linejoin="round">
                 <path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z"></path>
                 <circle cx="12" cy="10" r="3"></circle>
@@ -564,7 +859,7 @@
               <span id="story-meta-location">Ubicación</span>
             </span>
             <span>
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
                 stroke-linecap="round" stroke-linejoin="round">
                 <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
                 <line x1="16" y1="2" x2="16" y2="6"></line>
@@ -576,81 +871,86 @@
           </div>
         </div>
 
-        <h2 class="section-subtitle">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-            stroke-linejoin="round">
-            <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
-            <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
-          </svg>
-          ¿Qué sucedió?
-        </h2>
+        <!-- Contenedor dinámico de narrativa histórica escrita -->
         <div id="story-narrative-container">
-          <p class="narrative-p">Cargando narrativa histórica...</p>
-        </div>
-
-        <div class="context-box">
-          <h2 class="section-subtitle">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-              stroke-linejoin="round">
-              <circle cx="12" cy="12" r="10"></circle>
-              <line x1="12" y1="16" x2="12" y2="12"></line>
-              <line x1="12" y1="8" x2="12.01" y2="8"></line>
-            </svg>
-            Contexto Histórico
-          </h2>
-          <p class="context-p" id="story-context">Cargando contexto de la época...</p>
-
-          <h2 class="section-subtitle">
-            Música del relato
-          </h2>
-
-          <video id="story-music" controls preload="metadata" style="width:100%; border-radius:6px;">
-            <source src="" type="video/mp4">
-            Cargando música...
-          </video>
+          <p class="narrative-p">Cargando expediente histórico...</p>
         </div>
       </section>
 
-      <!-- Página derecha: Medios y tarjeta de catálogo -->
+      <!-- Página derecha: Medios históricos, Tarjeta de Música y Ficha de Registro -->
       <section class="archive-right">
-        <!-- Marco de fotos polaroid -->
+        <!-- Marco de foto histórica -->
         <div class="photo-frame">
-          <img src="images/....webp" alt="Previsualización histórica" id="story-image" />
+          <img src="images/....jpg" alt="Previsualización histórica" id="story-image" />
           <p class="photo-caption" id="story-caption">Captura de archivo</p>
         </div>
 
-        <!-- Conexión con el videojuego (Gameplay) -->
-        <div class="gameplay-box">
-          <h3 class="gameplay-title">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-              stroke-linejoin="round">
-              <rect x="2" y="6" width="20" height="12" rx="2" ry="2"></rect>
-              <line x1="6" y1="12" x2="10" y2="12"></line>
-              <line x1="8" y1="10" x2="8" y2="14"></line>
-              <line x1="15" y1="13" x2="15.01" y2="13"></line>
-              <line x1="18" y1="11" x2="18.01" y2="11"></line>
+        <!-- Nueva Tarjeta Integrada: Música del Relato -->
+        <div class="music-card" aria-label="Sección de música del relato">
+          <div class="music-card-header">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9 18V5l12-2v13"></path>
+              <circle cx="6" cy="18" r="3"></circle>
+              <circle cx="18" cy="16" r="3"></circle>
             </svg>
-            Experiencia en el Videojuego
-          </h3>
-          <ul class="gameplay-list" id="story-gameplay-list">
-            <li>Cargando hitos del nivel...</li>
-          </ul>
+            <span>Música del relato</span>
+          </div>
+          <div class="music-body">
+            <div class="music-meta-container">
+              <div class="music-cover-wrapper">
+                <img id="music-cover-img" src="" alt="Portada del tema" />
+              </div>
+              <div class="music-info">
+                <h4 id="music-track-title">Cargando canción...</h4>
+                <p class="music-artist" id="music-artist-name">Artista</p>
+                <span class="music-badge">Memoria Musical</span>
+              </div>
+            </div>
+            <div class="music-player-wrapper">
+              <video id="story-music" controls preload="metadata">
+                <source src="" type="video/mp4">
+                Tu navegador no soporta la reproducción del video/audio.
+              </video>
+            </div>
+            <p class="music-explanation" id="music-explanation-text">
+              Cargando explicación histórica de la música...
+            </p>
+          </div>
         </div>
 
-        <!-- Fuentes de la tarjeta de catálogo -->
+        <!-- Ficha de Registro del Archivo -->
         <div class="catalog-card" aria-label="Ficha de catalogación de fuentes">
           <div class="catalog-header">
             <span>Registro de Archivo</span>
             <span id="story-catalog-code">RO-000</span>
           </div>
           <div class="catalog-grid">
-            <span class="catalog-label">Origen:</span>
+            <span class="catalog-label">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+              </svg>
+              Origen:
+            </span>
             <span class="catalog-value" id="story-catalog-origin">Cargando...</span>
 
-            <span class="catalog-label">Área:</span>
+            <span class="catalog-label">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="2" y1="12" x2="22" y2="12"></line>
+              </svg>
+              Área:
+            </span>
             <span class="catalog-value" id="story-catalog-area">Cargando...</span>
 
-            <span class="catalog-label">Fuentes:</span>
+            <span class="catalog-label">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+              </svg>
+              Fuentes:
+            </span>
             <span class="catalog-value" id="story-catalog-sources">Cargando...</span>
           </div>
         </div>
@@ -661,7 +961,7 @@
   <!-- Navegación inferior (Relato anterior / siguiente) -->
   <footer class="bottom-nav">
     <a href="#" class="nav-arrow-btn" id="btn-prev-story">
-      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8"
         stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align: middle;">
         <line x1="19" y1="12" x2="5" y2="12"></line>
         <polyline points="12 19 5 12 12 5"></polyline>
@@ -670,7 +970,7 @@
     </a>
     <a href="#" class="nav-arrow-btn" id="btn-next-story">
       Siguiente Relato
-      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8"
         stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align: middle;">
         <line x1="5" y1="12" x2="19" y2="12"></line>
         <polyline points="12 5 19 12 12 19"></polyline>
@@ -679,149 +979,531 @@
   </footer>
 
   <script>
-    // Base de datos de relatos
+    // Base de datos enriquecida de los relatos históricos
     const storiesDatabase = {
       1: {
         level: "Nivel 1",
         title: "Camino a la Fiesta",
+        subtitle: "¿Qué ocurrió realmente con Mateo Gamarra y por qué, casi un siglo después, su nombre continúa en la memoria popular?",
         location: "Puerto Guaraní (Alto Paraguay)",
         date: "12 de octubre de 1931",
         image: "images/Camino_a_la_Fiesta.png",
-        caption: "La historia no tiene registros documentales oficiales: para historiadores como Luis Verón, es más una leyenda urbana transmitida \"de boca en boca\" que un hecho comprobado.",
+        caption: "Fotografía de época de la industria taninera en Puerto Guaraní, Chaco paraguayo. Una historia inmortalizada por la tradición oral.",
         catalogCode: "RO-1931-PG",
-        catalogOrigin: "Leyenda Urbana",
-        catalogArea: "Puerto Guaraní",
-        catalogSources: "1. La Nación – \"Delfina Servín y Mateo Gamarra, leyenda de un crimen\"; 2. ABC Color – \"Historia de un crimen que se hizo leyenda\"; 3. Última Hora – \"La polca 'Mateo Gamarra', una historia verídica que cumplió 86 años\"; 4. Concepción al Día – \"A 94 años del asesinato que inspiró la polca 'Mateo Gamarra'\"",
-        gameplay: [
-          "La ambientación en dónde transcurren los hechos",
-          "El conflicto entre Delfina y Mateo",
-          "Las localidades que se narran en el relato"
-        ],
-        narrative: [
-          "El 12 de octubre de 1931, en Puerto Guaraní (Alto Paraguay), se celebraba una fiesta por el Día de la Raza en la fábrica de tanino local. Mateo Gamarra bailó con otra mujer, humillando públicamente a su pareja, Delfina Servín.",
-          "Herida en su orgullo, ella le advirtió quién era y le disparó cinco veces, matándolo. El hecho inspiró la célebre polca paraguaya \"Mateo Gamarra\", que mantiene viva la historia hasta hoy."
-        ],
-        context: ["En 1931, Puerto Guaraní era una comunidad chaqueña próspera, sostenida por una fábrica de tanino extraído del quebracho colorado, en un país que estaba a las puertas de la Guerra del Chaco (1932), con creciente tensión con Bolivia."],
+        catalogOrigin: "Tradición Oral y Leyenda Popular",
+        catalogArea: "Puerto Guaraní (Alto Paraguay)",
+        catalogSources: "• Cronología: 12 de Octubre de 1931 (Vísperas de la Guerra del Chaco).\n• Estado Documental: Mito popular sin expedientes judiciales ni actas policiales oficiales.\n• Fuentes: Investigaciones de Luis Verón, archivos periodísticos y la polca tradicional 'Mateo Gamarra'.\n• Importancia Cultural: Ejemplo de cómo la música popular conservó la historia por encima de los archivos.",
         music: "video/Mateo Gamarra.mp4",
-        musicTitle: "Mateo Gamarra"
+        musicTitle: "Mateo Gamarra",
+        musicArtist: "Polca Tradicional Paraguaya",
+        musicCover: "images/Camino_a_la_Fiesta.png",
+        musicExplanation: "La polca paraguaya 'Mateo Gamarra' se transformó en el vehículo esencial para preservar este relato trágico. La música popular paraguaya suele inmortalizar hechos reales y pasionales, haciendo que la memoria colectiva perdure a través de las generaciones.",
+        contentLeft: [
+          {
+            type: "paragraph",
+            text: "La respuesta se encuentra en un relato que, más allá de las dudas sobre su autenticidad histórica, logró instalarse con fuerza en el imaginario colectivo de nuestro país gracias a la tradición oral y a la música popular."
+          },
+          {
+            type: "paragraph",
+            text: "Según la versión más difundida, el 12 de octubre de 1931, durante los festejos por el Día de la Raza realizados en Puerto Guaraní, en el departamento de Alto Paraguay, Mateo Gamarra participaba de un baile organizado en la comunidad vinculada a la fábrica de tanino de la localidad. En medio de la celebración, Gamarra habría decidido bailar con otra mujer, identificada en algunas versiones como Emilia Ortiz, situación que fue interpretada por su pareja, Delfina Servín, como una humillación pública. De acuerdo con el relato transmitido durante generaciones, Delfina le reclamó su comportamiento y posteriormente le disparó cinco veces con un revólver, provocándole la muerte en el lugar."
+          },
+          {
+            type: "heading",
+            text: "Un pueblo marcado por el tanino"
+          },
+          {
+            type: "paragraph",
+            text: "Para comprender el contexto del supuesto crimen resulta necesario observar cómo era Puerto Guaraní en aquellos años. A comienzos de la década de 1930, las localidades chaqueñas vinculadas a la explotación forestal y a la producción de tanino constituían algunos de los principales polos económicos del norte paraguayo. La industria se sostenía principalmente gracias al quebracho colorado, árbol abundante en el Chaco y del cual se obtenía el extracto tánico utilizado internacionalmente para el curtido de cueros."
+          },
+          {
+            type: "paragraph",
+            text: "Las fábricas contaban con infraestructura considerable para la época: ferrocarriles internos, talleres, almacenes, escuelas, servicios básicos e incluso sistemas propios de transporte fluvial sobre el río Paraguay. Puerto Guaraní formaba parte de ese mundo industrial chaqueño. La actividad económica giraba alrededor de la extracción forestal y de la producción de tanino, generando empleo y atrayendo trabajadores provenientes de distintos puntos del país, especialmente de Concepción y del norte paraguayo. Décadas después, el agotamiento de los quebrachales y la falta de programas de reforestación provocaron el declive económico de estas comunidades, pero en 1931 todavía representaban espacios de importante movimiento comercial y social."
+          },
+          {
+            type: "infobox",
+            boxType: "dato-historico",
+            title: "Contexto de Pre-Guerra",
+            text: "El momento histórico resulta significativo porque Paraguay atravesaba una etapa de creciente tensión diplomática y militar con Bolivia debido a la disputa territorial por el Chaco Boreal. Apenas un año después del supuesto asesinato de Mateo Gamarra estallaría oficialmente la Guerra del Chaco (1932-1935). Muchas de las localidades tanineras se convertirían en puntos estratégicos para el abastecimiento y la logística militar paraguaya."
+          },
+          {
+            type: "heading",
+            text: "La tragedia que inspiró una polca"
+          },
+          {
+            type: "paragraph",
+            text: "El episodio rápidamente trascendió el ámbito local y terminó convirtiéndose en la inspiración de la célebre polka paraguaya Mateo Gamarra, una de esas composiciones que forman parte del repertorio tradicional y que permitieron que la historia sobreviviera al paso del tiempo."
+          },
+          {
+            type: "paragraph",
+            text: "En Paraguay no es raro que acontecimientos trágicos, historias de amor o sucesos policiales terminen incorporándose al cancionero popular, y el caso de Mateo Gamarra constituye probablemente uno de los ejemplos más conocidos de este fenómeno cultural. La música terminó siendo el principal vehículo de conservación de la historia, incluso por encima de los registros escritos."
+          },
+          {
+            type: "quote",
+            text: "La música terminó siendo el principal vehículo de conservación de la historia, incluso por encima de los registros escritos."
+          },
+          {
+            type: "heading",
+            text: "¿Qué ocurrió con Delfina Servín?"
+          },
+          {
+            type: "paragraph",
+            text: "La historia también ha dado lugar a múltiples versiones sobre el destino posterior de Delfina Servín. Algunas narraciones sostienen que fue trasladada a Asunción y permaneció varios años recluida en la cárcel del Buen Pastor. Otras afirman que, una vez recuperada la libertad, trabajó durante años vendiendo flores frente al Cementerio de la Recoleta. Sin embargo, hasta la fecha no se han encontrado documentos judiciales, registros penitenciarios ni expedientes oficiales que permitan confirmar estas afirmaciones con certeza histórica."
+          },
+          {
+            type: "heading",
+            text: "Memoria y realidad"
+          },
+          {
+            type: "paragraph",
+            text: "Precisamente la ausencia de documentación constituye uno de los aspectos más interesantes del caso. El periodista e historiador paraguayo Luis Verón ha señalado que la historia de Mateo Gamarra debe entenderse principalmente como un mito urbano o una leyenda popular transmitida de generación en generación. Según sus investigaciones, no existen registros oficiales del homicidio, ni actas policiales, judiciales o penitenciarias que permitan corroborar los hechos tal como son narrados por la tradición oral. Tampoco se ha podido confirmar documentalmente la existencia de varios de los protagonistas mencionados en la canción popular."
+          },
+          {
+            type: "infobox",
+            boxType: "reflexion",
+            title: "Para Reflexionar",
+            text: "En Paraguay existen numerosos ejemplos de historias que sobreviven gracias a la memoria colectiva y al relato oral, especialmente en comunidades del interior del país donde muchas experiencias cotidianas nunca llegaron a quedar registradas en archivos oficiales."
+          },
+          {
+            type: "heading",
+            text: "¿Por qué sigue recordándose esta historia?"
+          },
+          {
+            type: "paragraph",
+            text: "Lejos de disminuir su importancia cultural, la falta de pruebas documentales contribuyó a fortalecer el carácter legendario del relato. El caso de Mateo Gamarra ocupa un lugar particular dentro de ese patrimonio intangible, porque combina elementos de la vida social de los pueblos tanineros del Chaco, las relaciones personales y el enorme peso que tiene la música popular en la conservación de nuestra memoria colectiva."
+          },
+          {
+            type: "summary",
+            title: "Para tener en cuenta",
+            text: "Al momento de recrear esta historia en un videojuego o en cualquier otra obra cultural, resulta importante distinguir claramente entre los elementos respaldados por el contexto histórico —como la existencia de Puerto Guaraní, la actividad taninera y la cercanía de la Guerra del Chaco— y aquellos aspectos que pertenecen principalmente al terreno de la tradición oral y la leyenda. Esa diferencia permite preservar el valor cultural del relato sin presentar como hechos comprobados elementos para los cuales todavía no existe evidencia documental suficiente."
+          }
+        ]
       },
       2: {
         level: "Nivel 2",
-        title: "El mensú",
-        location: "Alto Paraná",
-        date: "Fines del Siglo XIX - Med. Siglo XX",
+        title: "El Infierno Verde",
+        subtitle: "Los mensúes: la historia que quedó escondida entre los yerbales del Alto Paraná",
+        location: "Alto Paraná y Yerbales del Litoral",
+        date: "Fines del S. XIX - Mediados del S. XX",
         image: "images/El_Infierno_Verde.png",
-        caption: "El reviro es una comida que surgió en las zonas de Encarnación, Alto Paraná y el Litoral argentino, como alimento rápido y de pocos ingredientes para las largas jornadas.",
+        caption: "Campamento de mensúes en la selva del Alto Paraná. Ilustración histórica del trabajo yerbatero y la vida campesina.",
         catalogCode: "RO-MENSU-AP",
-        catalogOrigin: "Investigación Histórica",
-        catalogArea: "Alto Paraná",
-        catalogSources: "Investigación histórica sobre mensúes en el Alto Paraná y testimonios vinculados a la Industrial Paraguaya; Filosofía Une; Artículos periodísticos sobre el pasado yerbatero del Alto Paraná; Estudios sobre la superexplotación laboral y el peonaje por deudas en la cosecha de yerba mate; Material cultural y de memoria sobre los mensúes en la música popular y el patrimonio. Evidencias: Fotografías históricas de mensúes trabajando en los yerbales; Imágenes de raídos de yerba mate y herramientas utilizadas en la cosecha; Fotografías o ilustraciones de capangas y campamentos yerbateros; Fragmentos de la letra de \"El Mensú\" de Ramón Ayala.",
-        gameplay: [
-          "El engaño de los reclutadores para atraer trabajadores a los yerbales.",
-          "El esfuerzo del mensú por sobrevivir y escapar del sistema de explotación.",
-          "El trabajo extremo en los yerbales, cargando pesadas cargas de yerba mate.",
-          "La explotación laboral, el endeudamiento y los castigos impuestos por los capangas."
-        ],
-        narrative: [
-          "El mensú (“mensualero”) era el peón rural de los yerbales del Alto Paraná, en Paraguay y el nordeste argentino. Solían ser reclutados por contratistas o conchabadores que les prometían trabajo y, en muchos casos, les adelantaban dinero, lo que los dejaba endeudados desde el comienzo. En los yerbales, gran parte de su vida cotidiana quedaba atada a la empresa, porque compraban en proveedurías propias y quedaban atrapados en un sistema de deudas muy difícil de saldar.",
-          "Bajo el mando de un capanga, los mensúes realizaban jornadas extremadamente duras. Debían cargar raídos de yerba mate muy pesados y las denuncias históricas sobre los yerbales describen castigos como azotes y otras formas de coerción para quienes desobedecían o intentaban escapar.",
-          "Esta realidad inspiró la canción “El Mensú”, con letra de Ramón Ayala y música de Vicente Cidade, compuesta a mediados de la década de 1950 como una denuncia de la explotación sufrida por estos trabajadores."
-        ],
-        context: ["Entre fines del siglo XIX y mediados del siglo XX, la industria yerbatera del Alto Paraná se desarrolló en zonas boscosas, de difícil acceso y alejadas de los principales centros urbanos. Ese aislamiento favoreció que muchas empresas ejercieran un amplio control sobre la vida cotidiana de los trabajadores, administrando campamentos, proveedurías y, en varios casos, la organización misma del trabajo, lo que dificultaba la fiscalización y los reclamos. Diversas denuncias de la época señaló abusos laborales, endeudamiento forzado y la tolerancia o escasa intervención de algunas autoridades frente a estas prácticas. Aunque existieron intentos de regulación desde fines del siglo XIX, fue recién con el Estatuto del Peón de Campo de 1944, en Argentina, cuando se establecieron derechos básicos como una jornada regulada, descanso, salario y condiciones mínimas de alojamiento e higiene."],
+        catalogOrigin: "Investigación Histórica y Testimonios Épicos",
+        catalogArea: "Alto Paraná y Yerbales del Litoral",
+        catalogSources: "• Cronología: 1870 – 1940 (Período de auge de los latifundios yerbateros post Guerra de la Triple Alianza).\n• Estado Documental: Históricamente comprobado mediante denuncias de época, fotografías y archivos de La Industrial Paraguaya.\n• Fuentes: Crónicas 'Lo que son los yerbales paraguayos' de Rafael Barrett (1908), obra musical 'El Mensú' de Ramón Ayala y Vicente Cidade (1956) y estudios sociolaborales.\n• Importancia Cultural: Testimonio fundamental del pasado laboral del Paraguay y referente en la defensa de la dignidad humana.",
         music: "video/El Mensú.mp4",
-        musicTitle: "El Mensú"
+        musicTitle: "El Mensú",
+        musicArtist: "Ramón Ayala y Vicente Cidade (1956)",
+        musicCover: "images/El_Infierno_Verde.png",
+        musicExplanation: "En 1956, la creación del tema 'El Mensú' permitió que las nuevas generaciones conocieran la cruda realidad vivida en los yerbales del Alto Paraná. La música impidió que la memoria de miles de trabajadores anónimos fuera sepultada por el olvido.",
+        contentLeft: [
+          {
+            type: "quote",
+            text: "Durante décadas, miles de hombres entraron en la selva para trabajar en los yerbales. Muchos nunca imaginaron que salir sería mucho más difícil que entrar."
+          },
+          {
+            type: "paragraph",
+            text: "Cuando pensamos en la historia del Paraguay, solemos recordar grandes batallas, héroes nacionales o acontecimientos políticos. Sin embargo, también existen historias que ocurrieron lejos de las ciudades, ocultas entre la espesura del Alto Paraná."
+          },
+          {
+            type: "paragraph",
+            text: "Una de ellas es la de los mensúes, trabajadores de los yerbales cuya vida estuvo marcada por el esfuerzo, el aislamiento y un sistema laboral que hoy es recordado como uno de los más duros de la región. Conocer su historia no solo ayuda a entender cómo era el Paraguay de hace más de un siglo, sino también a valorar el esfuerzo de miles de personas que formaron parte del desarrollo económico del país."
+          },
+          {
+            type: "heading",
+            text: "¿Quiénes eran los mensúes?"
+          },
+          {
+            type: "paragraph",
+            text: "La palabra mensú proviene de mensualero, nombre con el que se conocía a los trabajadores contratados para trabajar por meses en los yerbales."
+          },
+          {
+            type: "infobox",
+            boxType: "sabias-que",
+            title: "¿Sabías que...?",
+            text: "Muchos historiadores creen que el término mensú terminó representando mucho más que un oficio: pasó a convertirse en el símbolo de un sistema de explotación que marcó la historia del Alto Paraná."
+          },
+          {
+            type: "heading",
+            text: "El sistema de contratación"
+          },
+          {
+            type: "paragraph",
+            text: "A simple vista parecía un empleo como cualquier otro. Los contratistas recorrían pueblos y compañías ofreciendo trabajo, prometiendo buenos salarios, alimentación y la posibilidad de mejorar la vida de quienes aceptaran la propuesta. Para muchas familias paraguayas, especialmente aquellas que vivían en condiciones humildes, aquella oferta representaba una oportunidad difícil de rechazar."
+          },
+          {
+            type: "paragraph",
+            text: "Una vez aceptado el trabajo, comenzaba un largo viaje hacia los yerbales. En aquella época casi no existían caminos como los conocemos hoy. Los trabajadores avanzaban por ríos, picadas abiertas en el monte y senderos rodeados de una selva prácticamente intacta. El recorrido podía durar varios días e incluso semanas. Al llegar, descubrían que estaban muy lejos de cualquier pueblo importante. No había hospitales cercanos, casi no existía presencia del Estado y regresar por cuenta propia era extremadamente complicado. La selva no solo aislaba a los trabajadores; también ayudaba a mantener el control sobre ellos."
+          },
+          {
+            type: "heading",
+            text: "La deuda que nunca terminaba"
+          },
+          {
+            type: "paragraph",
+            text: "Uno de los aspectos más conocidos del sistema del mensú era la llamada servidumbre por deudas. Antes de comenzar a trabajar, las empresas adelantaban dinero o entregaban herramientas, ropa, alimentos y otros artículos necesarios. Todo parecía una ayuda."
+          },
+          {
+            type: "paragraph",
+            text: "Sin embargo, esos productos luego eran descontados del salario a precios establecidos por la propia empresa. Con frecuencia, cuando llegaba el momento de cobrar, muchos trabajadores descubrían que todavía seguían debiendo dinero. Eso significaba que debían continuar trabajando para pagar una deuda que, en algunos casos, nunca terminaba de desaparecer. Hoy, numerosos investigadores consideran que este sistema fue una de las formas más severas de explotación laboral registradas en la región."
+          },
+          {
+            type: "infobox",
+            boxType: "proceso",
+            title: "Así funcionaba el sistema",
+            text: "1. Un contratista ofrecía trabajo.\n2. El trabajador aceptaba y recibía un adelanto.\n3. Llegaba al yerbal y comenzaba la jornada.\n4. Todo lo que consumía se anotaba como deuda.\n5. Al cobrar, gran parte del salario ya había sido descontado.\nPara muchos, el ciclo volvía a empezar una y otra vez."
+          },
+          {
+            type: "heading",
+            text: "Vivir dentro del monte"
+          },
+          {
+            type: "paragraph",
+            text: "La vida cotidiana estaba completamente ligada al bosque. Las jornadas comenzaban antes del amanecer y terminaban cuando el sol ya empezaba a esconderse. Los mensúes cortaban ramas de yerba mate, las agrupaban y cargaban enormes raídos, grandes bultos que podían pesar varias decenas de kilos."
+          },
+          {
+            type: "paragraph",
+            text: "El trabajo exigía una enorme resistencia física. A eso se sumaban el calor, la humedad, los mosquitos, las lluvias, las víboras y enfermedades que eran comunes en la región. Cada día representaba un nuevo desafío."
+          },
+          {
+            type: "heading",
+            text: "¿Qué comían?"
+          },
+          {
+            type: "paragraph",
+            text: "Después de horas de trabajo intenso, la alimentación debía ser sencilla pero suficiente para recuperar energías. Uno de los platos más habituales era el reviro, preparado con harina, grasa y agua. Su preparación era rápida y los ingredientes eran fáciles de transportar, por lo que se convirtió en una comida tradicional de los trabajadores rurales del Alto Paraná, Misiones y otras regiones cercanas. Todavía hoy, el reviro sigue formando parte de la gastronomía paraguaya y continúa siendo un símbolo de la vida en el campo."
+          },
+          {
+            type: "infobox",
+            boxType: "gastronomia",
+            title: "Gastronomía Histórica",
+            text: "El reviro sigue siendo una comida muy popular en Paraguay y suele acompañarse con cocido, mate cocido, café o huevo frito."
+          },
+          {
+            type: "heading",
+            text: "Los capangas"
+          },
+          {
+            type: "paragraph",
+            text: "Cada campamento tenía personas encargadas de organizar el trabajo y mantener el orden. A esos supervisores se los conocía como capangas. Diversos testimonios de la época cuentan que algunos utilizaban amenazas, castigos físicos y otras formas de violencia para impedir que los trabajadores abandonaran el yerbal. No todos actuaban de la misma manera, pero numerosos relatos coinciden en que el miedo era parte de la vida cotidiana dentro de muchos campamentos."
+          },
+          {
+            type: "heading",
+            text: "Rafael Barrett"
+          },
+          {
+            type: "paragraph",
+            text: "Durante muchos años, lo que ocurría en los yerbales era poco conocido fuera de la región. Uno de los primeros en denunciar públicamente esa situación fue el escritor y periodista Rafael Barrett. A comienzos del siglo XX publicó una serie de artículos donde describía las condiciones de vida de los mensúes. Sus escritos tuvieron un gran impacto y hoy siguen siendo una de las fuentes históricas más importantes para comprender aquella realidad."
+          },
+          {
+            type: "quote",
+            text: "Lo que son los yerbales paraguayos fue la célebre serie de artículos con la que Rafael Barrett denunció al mundo las condiciones de trabajo en la selva."
+          },
+          {
+            type: "heading",
+            text: "¿Por qué lo llamaban el Infierno Verde?"
+          },
+          {
+            type: "paragraph",
+            text: "Con el paso de los años, muchas personas comenzaron a referirse a los yerbales como el infierno verde. El nombre no hacía referencia solamente a la selva. También reflejaba el aislamiento, las largas jornadas de trabajo, las enfermedades y las dificultades que enfrentaban quienes vivían allí durante meses. Con el tiempo, esa expresión pasó a formar parte de la memoria colectiva del Paraguay y de toda la región del litoral."
+          },
+          {
+            type: "heading",
+            text: "La música mantuvo viva la historia"
+          },
+          {
+            type: "paragraph",
+            text: "No todas las historias sobreviven gracias a los libros. En 1956, el compositor Ramón Ayala, junto con Vicente Cidade, creó la canción El Mensú. La obra se convirtió en una de las composiciones más representativas del litoral y permitió que nuevas generaciones conocieran la historia de estos trabajadores incluso décadas después de que desaparecieran los grandes yerbales. La música terminó haciendo algo muy importante: mantener viva una memoria que corría el riesgo de desaparecer."
+          },
+          {
+            type: "timeline",
+            title: "Línea del Tiempo Histórica",
+            events: [
+              { year: "1870–1880", desc: "Comienza la gran expansión de los yerbales comerciales tras la Guerra de la Triple Alianza." },
+              { year: "Finales S. XIX", desc: "El sistema del mensú alcanza su rápido crecimiento y consolidación latifundista." },
+              { year: "1908", desc: "Rafael Barrett publica sus contundentes denuncias sobre los yerbales paraguayos." },
+              { year: "1880–1940", desc: "Período de mayor actividad y aislamiento del sistema de los mensúes en el Alto Paraná." },
+              { year: "1956", desc: "Ramón Ayala y Vicente Cidade componen la emblemática canción 'El Mensú'." },
+              { year: "Actualidad", desc: "La historia de los mensúes es recordada como patrimonio histórico y referente de derechos laborales." }
+            ]
+          },
+          {
+            type: "heading",
+            text: "¿Qué nos enseña hoy esta historia?"
+          },
+          {
+            type: "paragraph",
+            text: "Podría parecer que la historia de los mensúes terminó hace muchas décadas. Y, en efecto, aquel sistema de trabajo en los grandes yerbales desapareció con el tiempo. Sin embargo, la pregunta que deja esta historia sigue siendo actual: ¿Puede una persona perder su libertad por necesidad, por deudas o por falta de oportunidades?"
+          },
+          {
+            type: "paragraph",
+            text: "Lamentablemente, distintas organizaciones internacionales señalan que el trabajo forzoso y la servidumbre por deudas aún existen en diferentes partes del mundo en sectores como la agricultura, la minería o la construcción. En Paraguay también se impulsaron acciones para prevenir y erradicar estas prácticas en zonas rurales. Al mismo tiempo, la realidad de la yerba mate paraguaya es hoy muy diferente, brindando trabajo digno bajo marcos legales estrictos."
+          },
+          {
+            type: "paragraph",
+            text: "Recordar la historia de los mensúes no significa mirar el pasado con resentimiento. Significa aprender de él. Cada derecho laboral que hoy parece normal —recibir un salario justo, tener horarios de trabajo, poder renunciar a un empleo o denunciar abusos— existe porque muchas personas sufrieron cuando esas garantías aún no estaban protegidas."
+          },
+          {
+            type: "summary",
+            title: "Para tener en cuenta",
+            text: "La historia de los mensúes no es solamente un recuerdo del pasado. Es un recordatorio vivo de que la dignidad del trabajo debe protegerse y defenderse en todas las épocas."
+          }
+        ]
       },
       3: {
         level: "Nivel 3",
-        title: "El Karãu",
-        location: "Esteros",
+        title: "Ecos del Llanto",
+        subtitle: "¿Por qué el canto del karáu suena como un lamento?",
+        location: "Esteros y Humedales del Paraguay",
         date: "Cosmovisión Guaraní",
         image: "images/Ecos_del_Llanto.png",
-        caption: "El nombre del ave karãu imita su propio canto: un lamento grave y repetido (\"karãu, karãu...\") que, según la leyenda, es el eterno llanto del joven arrepentido por no haber acompañado a su madre.",
+        caption: "El Karãu (Aramus guarauna) habitante de los esteros paraguayos. Ave mítica y símbolo del folclore nacional.",
         catalogCode: "RO-M-KARAUR",
-        catalogOrigin: "Mitos Etiológicos",
-        catalogArea: "Esteros y Humedales",
-        catalogSources: "1. Portal Guaraní — \"Karãu\", versión de Lino Trinidad Sanabria; 2. Paraguayología — \"Hay tiempo para llorar, he'i Karãu\"; 3. Guía Amarilla de Formosa — \"El Carau, leyenda guaraní\"; 4. Wikipedia — \"Aramus guarauna\" (carao). Evidencias: Ilustraciones del ave karãu, grabaciones de su canto, recortes de compilaciones folclóricas — a completar.",
-        gameplay: [
-          "El camino que transcurre Karãu",
-          "El elemento del propósito inicial de Karãu",
-          "Lo poco que resultó ser importante para el Karãu la vida de su madre",
-          "El castigo inferido por Dios"
-        ],
-        narrative: [
-          "Karãu era un joven apuesto, buen bailarín y cantor, que vivía cuidando a su madre enferma. Una noche salió a buscarle un remedio, pero en el camino se topó con una fiesta y se dejó llevar por el baile y una joven que lo cautivó.",
-          "Un amigo le avisó que su madre agonizaba, pero él respondió que \"hay tiempo para llorar\" y siguió bailando. Al amanecer supo que su madre había muerto. Consumido por la culpa, huyó llorando hacia los esteros, donde Tupã lo condenó a vivir para siempre convertido en ave, gimiendo su arrepentimiento."
-        ],
-        context: ["La leyenda pertenece a la cosmovisión guaraní, donde los mitos explican el origen de la naturaleza (relatos etiológicos) y transmiten valores como el respeto a la madre y la familia. Figuras como Tupã, dios creador, intervenían para castigar o premiar la conducta humana, y estos relatos se transmitían oralmente de generación en generación mucho antes de ser registrados por escrito."],
+        catalogOrigin: "Mitos Etiológicos Guaraníes",
+        catalogArea: "Esteros y Humedales del Paraguay",
+        catalogSources: "• Cronología: Tradición oral ancestral prehispánica y folclore nacional.\n• Estado Documental: Patrimonio cultural intangible; relato mitológico no histórico transmitido de generación en generación.\n• Fuentes: Recopilaciones de Lino Trinidad Sanabria, literatura oral guaraní, datos ornitológicos (*Aramus guarauna*) y obras del folclore paraguayo.\n• Importancia Cultural: Leyenda fundamental sobre la empatía, el valor de la madre y el respeto a la familia.",
         music: "video/LA LEYENDA DEL KARAU.mp4",
-        musicTitle: "La Leyenda del Karãu"
+        musicTitle: "La Leyenda del Karãu",
+        musicArtist: "Folclore Tradicional Paraguayo",
+        musicCover: "images/Ecos_del_Llanto.png",
+        musicExplanation: "Como muchas leyendas paraguayas, la historia del Karãu inspiró composiciones folclóricas imperecederas. Gracias a la música, el canto del ave dejó de ser un simple sonido de los esteros para convertirse en un ícono de la identidad cultural del Paraguay.",
+        contentLeft: [
+          {
+            type: "quote",
+            text: "Dicen que hay noches en las que el canto del karáu parece el llanto de alguien que todavía no encuentra paz."
+          },
+          {
+            type: "paragraph",
+            text: "En Paraguay existen muchas leyendas que buscan explicar los misterios de la naturaleza. Algunas hablan del origen de una planta, otras de un río o de un animal. Entre todas ellas, pocas son tan conocidas como la del Karáu, un ave de los esteros cuyo canto, según la tradición guaraní, guarda una historia de arrepentimiento que ha pasado de generación en generación."
+          },
+          {
+            type: "paragraph",
+            text: "Aunque nadie puede decir cuándo nació exactamente esta leyenda, todavía hoy muchas personas recuerdan su historia cuando escuchan el canto del ave en medio del silencio de la noche."
+          },
+          {
+            type: "heading",
+            text: "Una leyenda transmitida por generaciones"
+          },
+          {
+            type: "paragraph",
+            text: "Hace cientos de años no existían libros ni internet. Las historias se transmitían de padres a hijos, de abuelos a nietos alrededor del fogón. Las leyendas ayudaban a explicar la naturaleza, pero también enseñaban valores importantes para la vida en comunidad."
+          },
+          {
+            type: "heading",
+            text: "La decisión que cambió su destino"
+          },
+          {
+            type: "paragraph",
+            text: "La leyenda cuenta que Karáu era un joven conocido por su alegría, por su habilidad para bailar y por disfrutar de las fiestas. Vivía junto a su madre, quien estaba muy enferma. Una noche salió a buscar un remedio para ayudarla, pero en el camino encontró una celebración llena de música y baile. Pensó que solo se quedaría un momento. Sin darse cuenta, las horas comenzaron a pasar."
+          },
+          {
+            type: "infobox",
+            boxType: "sabias-que",
+            title: "¿Sabías que...?",
+            text: "En muchas versiones de la leyenda, Karáu no era un hombre malo. Su error fue creer que todavía tendría tiempo para cumplir con su responsabilidad."
+          },
+          {
+            type: "heading",
+            text: "La frase fatídica"
+          },
+          {
+            type: "paragraph",
+            text: "Mientras la fiesta seguía, un amigo llegó con una noticia urgente: su madre estaba agonizando y preguntaba por él. Karáu, convencido de que todavía podía regresar más tarde, respondió una frase que marcaría su destino para siempre: \"Hay tiempo para llorar\". Después volvió a bailar. Cuando finalmente regresó a su casa, ya era demasiado tarde: su madre había fallecido."
+          },
+          {
+            type: "quote",
+            text: "Hay tiempo para llorar."
+          },
+          {
+            type: "heading",
+            text: "El castigo de Tupã"
+          },
+          {
+            type: "paragraph",
+            text: "La tristeza y la culpa fueron tan grandes que Karáu huyó hacia los esteros sin dejar de llorar. Según la tradición guaraní, Tupã, al ver lo ocurrido, decidió castigarlo transformándolo en un ave condenada a recorrer los humedales para siempre. Desde entonces, cada uno de sus cantos recuerda el dolor de haber llegado demasiado tarde. Por eso, muchas personas dicen que el karáu no canta... lamenta."
+          },
+          {
+            type: "heading",
+            text: "Más que una leyenda"
+          },
+          {
+            type: "paragraph",
+            text: "A simple vista, este relato parece explicar cómo apareció un ave. Pero en realidad transmite una enseñanza mucho más profunda. Habla de la importancia de cuidar a quienes queremos, de cumplir con nuestras responsabilidades y de no dejar para después aquello que realmente importa."
+          },
+          {
+            type: "infobox",
+            boxType: "reflexion",
+            title: "Una enseñanza que sigue vigente",
+            text: "La leyenda nos recuerda que hay momentos que no vuelven. El tiempo perdido no siempre puede recuperarse. Y algunas palabras, cuando llegan demasiado tarde, ya no cambian lo ocurrido."
+          },
+          {
+            type: "heading",
+            text: "El karáu existe realmente"
+          },
+          {
+            type: "paragraph",
+            text: "Lo más curioso de esta historia es que el Karáu no pertenece solo a la imaginación. Es un ave real que vive en gran parte de Sudamérica, especialmente en esteros, lagunas y humedales. Su nombre científico es Aramus guarauna, aunque en otros países recibe nombres como carao o limpkin."
+          },
+          {
+            type: "paragraph",
+            text: "Se distingue por su plumaje marrón oscuro con pequeñas manchas claras, sus patas largas ideales para caminar sobre el agua y la vegetación, y un canto grave, largo y repetitivo que muchas personas comparan con un lamento."
+          },
+          {
+            type: "infobox",
+            boxType: "fauna",
+            title: " ¿Sabías que...?",
+            text: "El karáu se alimenta principalmente de caracoles de agua dulce, utilizando su pico largo y curvado para extraer al animal de su caparazón."
+          },
+          {
+            type: "heading",
+            text: "Las leyendas guaraníes"
+          },
+          {
+            type: "paragraph",
+            text: "El Karáu comparte esta forma de contar historias con otras leyendas paraguayas muy conocidas como El Pombero, El Jasy Jatere, La Flor del Yrupé, El Urutaú y El Mainumbý. Cada una intenta explicar un aspecto de la naturaleza mientras deja una lección ética para quien la escucha."
+          },
+          {
+            type: "heading",
+            text: "La música también conservó esta historia"
+          },
+          {
+            type: "paragraph",
+            text: "Como muchas otras leyendas paraguayas, la historia del Karáu también inspiró canciones y obras del folclore nacional. Gracias a la música, el relato pasó de una generación a otra y llegó incluso a personas que nunca habían escuchado la leyenda completa. Así, el canto del ave dejó de ser solo un sonido de la naturaleza para convertirse también en un símbolo de nuestra cultura."
+          },
+          {
+            type: "heading",
+            text: "¿Qué nos puede enseñar hoy?"
+          },
+          {
+            type: "paragraph",
+            text: "Vivimos en una época en la que el trabajo, el estudio, el celular y las redes sociales muchas veces ocupan casi todo nuestro tiempo. Sin darnos cuenta, podemos ir dejando para después una visita a un familiar, una conversación pendiente o un momento con las personas que más queremos."
+          },
+          {
+            type: "paragraph",
+            text: "La historia del Karáu nos invita a pensar justamente en eso. No habla solamente de un castigo: habla del valor de estar presentes cuando alguien nos necesita. Porque hay oportunidades que vuelven... pero también existen momentos que, una vez que pasan, ya no regresan."
+          },
+          {
+            type: "summary",
+            title: "Para tener en cuenta",
+            text: "Las leyendas no buscan decirnos cómo ocurrió el pasado. Buscan ayudarnos a vivir mejor el presente."
+          }
+        ]
       }
     };
 
-    // Obtener el ID de la historia desde los parámetros de consulta de la URL
+    // Obtener ID del relato de los parámetros URL (?id=1)
     function getStoryId() {
       const params = new URLSearchParams(window.location.search);
       const id = parseInt(params.get('id'));
       if (id && storiesDatabase[id]) {
         return id;
       }
-      return 1; // Por defecto al nivel 1
+      return 1; // Por defecto Relato 1
     }
 
-    // Renderizar datos del relato
+    // Renderizar dinámicamente el relato
     function renderStory(id) {
       const data = storiesDatabase[id];
       const folder = document.getElementById('folder-content');
 
-      // Efecto de transición: Desvanecer (Fade Out)
+      // Transición suave: Desvanecer
       folder.style.opacity = 0.1;
 
       setTimeout(() => {
-        // Establecer metadatos y título
+        // Asignar metadatos y títulos
         document.getElementById('story-meta-level').innerText = data.level;
         document.getElementById('story-title').innerText = data.title;
+        document.getElementById('story-subtitle').innerText = data.subtitle;
         document.getElementById('story-meta-location').innerText = data.location;
         document.getElementById('story-meta-date').innerText = data.date;
 
-        // Establecer párrafos narrativos
+        // Renderizar narrativa estructurada en la página izquierda
         const narrativeContainer = document.getElementById('story-narrative-container');
         narrativeContainer.innerHTML = '';
-        data.narrative.forEach(para => {
-          const p = document.createElement('p');
-          p.className = 'narrative-p';
-          p.innerText = para;
-          narrativeContainer.appendChild(p);
+
+        data.contentLeft.forEach(item => {
+          if (item.type === 'paragraph') {
+            const p = document.createElement('p');
+            p.className = 'narrative-p';
+            p.innerText = item.text;
+            narrativeContainer.appendChild(p);
+          } else if (item.type === 'heading') {
+            const h2 = document.createElement('h2');
+            h2.className = 'bold-heading';
+            h2.innerHTML = `<strong>${item.text}</strong>`;
+            narrativeContainer.appendChild(h2);
+          } else if (item.type === 'quote') {
+            const blockquote = document.createElement('blockquote');
+            blockquote.className = 'quote-card';
+            blockquote.innerHTML = `<span class="quote-mark">“</span><p>${item.text}</p>`;
+            narrativeContainer.appendChild(blockquote);
+          } else if (item.type === 'infobox') {
+            const box = document.createElement('div');
+            box.className = `info-card ${item.boxType || ''}`;
+            box.innerHTML = `
+              <div class="info-card-header">
+                <h4 class="info-card-title">${item.title}</h4>
+              </div>
+              <p class="info-card-text">${item.text.replace(/\n/g, '<br>')}</p>
+            `;
+            narrativeContainer.appendChild(box);
+          } else if (item.type === 'timeline') {
+            const tlContainer = document.createElement('div');
+            tlContainer.className = 'timeline-card';
+            let eventsHTML = item.events.map(ev => `
+              <div class="timeline-item">
+                <div class="timeline-marker"></div>
+                <div class="timeline-content">
+                  <span class="timeline-year">${ev.year}</span>
+                  <p class="timeline-desc">${ev.desc}</p>
+                </div>
+              </div>
+            `).join('');
+            tlContainer.innerHTML = `
+              <h3 class="timeline-title">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <polyline points="12 6 12 12 16 14"></polyline>
+                </svg>
+                ${item.title}
+              </h3>
+              <div class="timeline-list">${eventsHTML}</div>
+            `;
+            narrativeContainer.appendChild(tlContainer);
+          } else if (item.type === 'summary') {
+            const sumBox = document.createElement('div');
+            sumBox.className = 'summary-card';
+            sumBox.innerHTML = `
+              <div class="summary-header">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                </svg>
+                <h4>${item.title}</h4>
+              </div>
+              <p>${item.text}</p>
+            `;
+            narrativeContainer.appendChild(sumBox);
+          }
         });
 
-        // Establecer texto del contexto histórico
-        document.getElementById('story-context').innerText = data.context;
-
-        // Establecer imagen y pie de foto del medio
+        // Asignar imagen histórica y pie de foto
         document.getElementById('story-image').src = data.image;
         document.getElementById('story-image').alt = data.title;
         document.getElementById('story-caption').innerText = data.caption;
 
-        // Establecer música del medio
+        // Asignar Tarjeta de Música Integrada
+        document.getElementById('music-track-title').innerText = data.musicTitle;
+        document.getElementById('music-artist-name').innerText = data.musicArtist;
+        document.getElementById('music-cover-img').src = data.musicCover || data.image;
+        document.getElementById('music-explanation-text').innerText = data.musicExplanation;
+
         const video = document.getElementById("story-music");
         const source = video.querySelector("source");
-
         video.pause();
         video.currentTime = 0;
-
         source.src = data.music;
         video.load();
 
-
-        // Establecer elementos de la lista de jugabilidad
-        const gameplayContainer = document.getElementById('story-gameplay-list');
-        gameplayContainer.innerHTML = '';
-        data.gameplay.forEach(item => {
-          const li = document.createElement('li');
-          li.innerText = item;
-          gameplayContainer.appendChild(li);
-        });
-
-        // Establecer detalles de las fuentes de la tarjeta de catálogo
+        // Asignar Ficha del Registro de Archivo
         document.getElementById('story-catalog-code').innerText = data.catalogCode;
         document.getElementById('story-catalog-origin').innerText = data.catalogOrigin;
         document.getElementById('story-catalog-area').innerText = data.catalogArea;
@@ -850,15 +1532,15 @@
           nextBtn.removeAttribute('href');
         }
 
-        // Actualizar el título del documento dinámicamente
+        // Título dinámico de la pestaña
         document.title = `${data.level}: ${data.title} - Relatos Ocultos`;
 
-        // Efecto de transición: Aparición gradual (Fade In)
+        // Transición suave: Aparición
         folder.style.opacity = 1;
       }, 200);
     }
 
-    // Inicialización de la página
+    // Inicialización al cargar el documento
     document.addEventListener('DOMContentLoaded', () => {
       const currentId = getStoryId();
       renderStory(currentId);
