@@ -816,9 +816,16 @@
       }
     }
   </style>
+  <style id="initial-reveal-styles">
+    #initial-reveal { position: fixed; inset: 0; z-index: 2147483647; display: block; overflow: hidden; background: transparent; pointer-events: auto; }
+    .initial-reveal-block { position: absolute !important; display: block !important; min-width: 0; min-height: 0; margin: 0 !important; padding: 0 !important; border: 0 !important; background: #5a321f; opacity: 1; transform: scale(1); transition: opacity 240ms ease, transform 240ms ease; }
+    .initial-reveal-block.is-cleared { opacity: 0; transform: scale(0.96); }
+    @media (prefers-reduced-motion: reduce) { .initial-reveal-block { transition: none; } }
+  </style>
 </head>
 
 <body>
+  <div id="initial-reveal" aria-hidden="true"></div>
 
   <!-- Rutas de recorte SVG dinámicas -->
   <svg width="0" height="0" style="position: absolute;">
@@ -989,7 +996,7 @@
         subtitle: "¿Qué ocurrió realmente con Mateo Gamarra y por qué, casi un siglo después, su nombre continúa en la memoria popular?",
         location: "Puerto Guaraní (Alto Paraguay)",
         date: "12 de octubre de 1931",
-        image: "images/Camino_a_la_Fiesta.png",
+        image: "images/Camino_a_la_Fiesta.jpg",
         caption: "Fotografía de época de la industria taninera en Puerto Guaraní, Chaco paraguayo. Una historia inmortalizada por la tradición oral.",
         catalogCode: "RO-1931-PG",
         catalogOrigin: "Tradición Oral y Leyenda Popular",
@@ -998,7 +1005,7 @@
         music: "video/Mateo Gamarra.mp4",
         musicTitle: "Mateo Gamarra",
         musicArtist: "Polca Tradicional Paraguaya",
-        musicCover: "images/Camino_a_la_Fiesta.png",
+        musicCover: "images/Camino_a_la_Fiesta.jpg",
         musicExplanation: "La polca paraguaya 'Mateo Gamarra' se transformó en el vehículo esencial para preservar este relato trágico. La música popular paraguaya suele inmortalizar hechos reales y pasionales, haciendo que la memoria colectiva perdure a través de las generaciones.",
         contentLeft: [
           {
@@ -1086,7 +1093,7 @@
         subtitle: "Los mensúes: la historia que quedó escondida entre los yerbales del Alto Paraná",
         location: "Alto Paraná y Yerbales del Litoral",
         date: "Fines del S. XIX - Mediados del S. XX",
-        image: "images/El_Infierno_Verde.png",
+        image: "images/El_Infierno_Verde.jpg",
         caption: "Campamento de mensúes en la selva del Alto Paraná. Ilustración histórica del trabajo yerbatero y la vida campesina.",
         catalogCode: "RO-MENSU-AP",
         catalogOrigin: "Investigación Histórica y Testimonios Épicos",
@@ -1095,7 +1102,7 @@
         music: "video/El Mensú.mp4",
         musicTitle: "El Mensú",
         musicArtist: "Ramón Ayala y Vicente Cidade (1956)",
-        musicCover: "images/El_Infierno_Verde.png",
+        musicCover: "images/El_Infierno_Verde.jpg",
         musicExplanation: "En 1956, la creación del tema 'El Mensú' permitió que las nuevas generaciones conocieran la cruda realidad vivida en los yerbales del Alto Paraná. La música impidió que la memoria de miles de trabajadores anónimos fuera sepultada por el olvido.",
         contentLeft: [
           {
@@ -1547,6 +1554,33 @@
       const currentId = getStoryId();
       renderStory(currentId);
     });
+  </script>
+  <script>
+    (() => {
+      const reveal = document.getElementById('initial-reveal');
+      if (!reveal) return;
+      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const criticalImages = ['images/parchment_bg_for_relatos.png'];
+      const preloadCriticalImages = Promise.all(criticalImages.map((src) => new Promise((resolve) => { const image = new Image(); image.onload = image.onerror = resolve; image.src = src; })));
+      const pageLoaded = document.readyState === 'complete' ? Promise.resolve() : new Promise((resolve) => window.addEventListener('load', resolve, { once: true }));
+      const timeout = new Promise((resolve) => setTimeout(resolve, 4000));
+      function buildGrid() {
+        const columns = Math.min(32, Math.max(12, Math.ceil(window.innerWidth / 45)));
+        const rows = Math.min(30, Math.max(14, Math.ceil(window.innerHeight / 45)));
+        const fragment = document.createDocumentFragment();
+        for (let row = 0; row < rows; row += 1) for (let column = 0; column < columns; column += 1) { const block = document.createElement('span'); block.className = 'initial-reveal-block'; block.dataset.row = row; block.dataset.column = column; block.style.left = `${(column * 100) / columns}%`; block.style.top = `${(row * 100) / rows}%`; block.style.width = `calc(${100 / columns}% + 1px)`; block.style.height = `calc(${100 / rows}% + 1px)`; fragment.appendChild(block); }
+        reveal.appendChild(fragment);
+      }
+      function removeReveal() {
+        if (reducedMotion) { reveal.remove(); return; }
+        const blocks = reveal.querySelectorAll('.initial-reveal-block');
+        blocks.forEach((block) => { const verticalProgress = Number(block.dataset.row) / Math.max(1, Number(blocks[blocks.length - 1].dataset.row)); const randomVariation = Math.floor(Math.random() * 260); block.style.transitionDelay = `${Math.floor(verticalProgress * 760) + randomVariation}ms`; block.classList.add('is-cleared'); });
+        const duration = 240 + 760 + 260 + 120;
+        setTimeout(() => reveal.remove(), duration);
+      }
+      buildGrid();
+      Promise.race([Promise.all([preloadCriticalImages, pageLoaded]), timeout]).then(removeReveal);
+    })();
   </script>
 </body>
 

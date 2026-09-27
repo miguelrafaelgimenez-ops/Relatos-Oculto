@@ -33,8 +33,8 @@
     rel="stylesheet">
 
   <!-- Preload de imágenes críticas -->
-  <link rel="preload" href="images/parchment_bg.webp" as="image" type="image/webp" fetchpriority="high">
-  <link rel="preload" href="images/brown_paper_texture.webp" as="image" type="image/webp">
+  <link rel="preload" href="images/parchment_bg.jpg" as="image" type="image/jpeg" fetchpriority="high">
+  <link rel="preload" href="images/brown_paper_texture.jpg" as="image" type="image/jpeg">
 
   <!-- CSS de la Biblioteca de Animaciones AOS (carga no bloqueante) -->
   <link rel="preload" href="https://unpkg.com/aos@2.3.1/dist/aos.css" as="style"
@@ -122,7 +122,7 @@
       width: var(--sidebar-width);
       background:
         linear-gradient(180deg, rgba(30, 17, 7, 0.97) 0%, rgba(20, 9, 2, 0.99) 100%),
-        url('images/parchment_bg.webp');
+        url('images/parchment_bg.jpg');
       background-size: cover;
       border-right: 2px solid var(--sidebar-border);
       border-bottom: none;
@@ -440,7 +440,7 @@
       overflow: hidden;
       background-image:
         radial-gradient(circle at center, transparent 30%, rgba(30, 17, 7, 0.4) 100%),
-        url('images/parchment_bg.webp');
+        url('images/parchment_bg.jpg');
       background-size: cover;
       background-position: center;
     }
@@ -512,7 +512,7 @@
     /* Tarjeta de papel kraft marrón rasgado coincidente con image_0.png */
     .hero-title-card {
       background-color: #5c432d;
-      background-image: url('images/brown_paper_texture.webp');
+      background-image: url('images/brown_paper_texture.jpg');
       background-size: cover;
       padding: 3rem 4rem;
       clip-path: url(#torn-horizontal);
@@ -859,7 +859,7 @@
       background: var(--sepia-dark);
       background-image:
         radial-gradient(circle at center, transparent 40%, rgba(0, 0, 0, 0.6) 100%),
-        url('images/background1.png');
+        url('images/background1.jpg');
       background-size: cover;
       background-position: center;
       color: var(--parchment);
@@ -1080,7 +1080,7 @@
       background: var(--parchment-dark);
       background-image:
         radial-gradient(circle at center, rgba(30, 17, 7, 0.2) 0%, rgba(30, 17, 7, 0.45) 100%),
-        url('images/parchment_bg.webp');
+        url('images/parchment_bg.jpg');
       background-size: cover;
       background-position: center;
       border-top: 4px double var(--sepia);
@@ -1485,7 +1485,7 @@
       background: var(--sepia-dark);
       background-image:
         radial-gradient(circle at center, transparent 30%, rgba(0, 0, 0, 0.5) 100%),
-        url('images/backgrounddescarga.png');
+        url('images/backgrounddescarga.jpg');
       background-size: cover;
       padding: 6rem 2rem;
       text-align: center;
@@ -2150,9 +2150,51 @@
       }
     }
   </style>
+  <style id="initial-reveal-styles">
+    #initial-reveal {
+      position: fixed;
+      inset: 0;
+      z-index: 2147483647;
+      display: block;
+      overflow: hidden;
+      background: transparent;
+      pointer-events: auto;
+    }
+
+    #initial-reveal.is-hidden {
+      pointer-events: none;
+    }
+
+    .initial-reveal-block {
+      position: absolute !important;
+      display: block !important;
+      min-width: 0;
+      min-height: 0;
+      margin: 0 !important;
+      padding: 0 !important;
+      border: 0 !important;
+      background: #5a321f;
+      opacity: 1;
+      transform: scale(1);
+      transform-origin: center;
+      transition: opacity 240ms ease, transform 240ms ease;
+    }
+
+    .initial-reveal-block.is-cleared {
+      opacity: 0;
+      transform: scale(0.96);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .initial-reveal-block {
+        transition: none;
+      }
+    }
+  </style>
 </head>
 
 <body>
+  <div id="initial-reveal" aria-hidden="true"></div>
 
   <!-- Rutas de recorte SVG dinámicas (100% vectoriales, responsivas, 0ms de solicitud de red) -->
   <svg width="0" height="0" style="position: absolute;">
@@ -2323,7 +2365,7 @@
         data-aos-delay="700">
         <div class="photo-frame torn-photo-left">
           <div class="landmark-illustration" aria-label="Camino a la Fiesta. CHACO PARAGUAYO" role="img">
-            <img src="images/NL1.png" alt="Camino a la Fiesta" />
+            <img src="images/NL1.jpg" alt="Camino a la Fiesta" />
           </div>
         </div>
       </div>
@@ -2333,7 +2375,7 @@
         data-aos-delay="500">
         <div class="photo-frame torn-photo-center">
           <div class="landmark-illustration" aria-label="El Infierno Verde, ALTO PARANÁ" role="img">
-            <img src="images/NL2.png" alt="El Infierno Verde" />
+            <img src="images/NL2.jpg" alt="El Infierno Verde" />
           </div>
         </div>
       </div>
@@ -2343,7 +2385,7 @@
         data-aos-delay="800">
         <div class="photo-frame torn-photo-right">
           <div class="landmark-illustration" aria-label="Ecos del Llanto, ESTEROS" role="img">
-            <img src="images/NL3.png" alt="Ecos del Llanto" />
+            <img src="images/NL3.jpg" alt="Ecos del Llanto" />
           </div>
         </div>
       </div>
@@ -2438,7 +2480,7 @@
                 <span class="story-badge">Nivel 1</span>
                 <div class="story-image-wrap">
                   <div class="landmark-illustration" aria-label="CHACO PARAGUAYO" role="img">
-                    <img src="images/Camino_a_la_Fiesta.png" alt="Camino a la Fiesta">
+                    <img src="images/Camino_a_la_Fiesta.jpg" alt="Camino a la Fiesta">
                   </div>
                 </div>
                 <span class="story-location">CHACO PARAGUAYO</span>
@@ -2459,7 +2501,7 @@
                 <span class="story-badge">Nivel 2</span>
                 <div class="story-image-wrap">
                   <div class="landmark-illustration" aria-label="El Infierno Verde, ALTO PARANÁ" role="img">
-                    <img src="images/El_Infierno_Verde.png" alt="El Infierno Verde" />
+                    <img src="images/El_Infierno_Verde.jpg" alt="El Infierno Verde" />
                   </div>
                 </div>
                 <span class="story-location">ALTO PARANÁ</span>
@@ -2664,7 +2706,7 @@
         <div class="team-card-shadow" data-aos="fade-up" data-aos-duration="400" data-aos-delay="200">
           <div class="team-card" tabindex="0" aria-label="Tarjeta de Cayo Ávalos, Diseñador de Gráficos.">
             <div class="team-avatar-frame">
-              <img src="images/CayoFoto.png" alt="Cayo Ávalos, Diseñador Gráfico de Relatos Ocultos" loading="lazy"
+              <img src="images/CayoFoto.jpg" alt="Cayo Ávalos, Diseñador Gráfico de Relatos Ocultos" loading="lazy"
                 decoding="async" width="150" height="150">
             </div>
             <h3 class="team-name">Cayo Ávalos</h3>
@@ -2682,7 +2724,7 @@
         <div class="team-card-shadow" data-aos="fade-up" data-aos-duration="800" data-aos-delay="300">
           <div class="team-card" tabindex="0" aria-label="Tarjeta de Miguel Giménez, Creador de la Página Web.">
             <div class="team-avatar-frame">
-              <img src="images/MiguelFoto.png" alt="Miguel Giménez, Creador de la página web de Relatos Ocultos"
+              <img src="images/MiguelFoto.jpg" alt="Miguel Giménez, Creador de la página web de Relatos Ocultos"
                 loading="lazy" decoding="async" width="150" height="150">
             </div>
             <h3 class="team-name">Miguel Giménez</h3>
@@ -3079,6 +3121,76 @@
         }
       });
     }
+  </script>
+  <script>
+    (() => {
+      const reveal = document.getElementById('initial-reveal');
+      if (!reveal) return;
+
+      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const criticalImages = [
+        'images/parchment_bg.jpg',
+        'images/brown_paper_texture.jpg',
+        'images/background1.jpg',
+        'images/backgrounddescarga.jpg'
+      ];
+
+      const preloadCriticalImages = Promise.all(criticalImages.map((src) => new Promise((resolve) => {
+        const image = new Image();
+        image.onload = image.onerror = resolve;
+        image.src = src;
+      })));
+
+      const pageLoaded = document.readyState === 'complete'
+        ? Promise.resolve()
+        : new Promise((resolve) => window.addEventListener('load', resolve, { once: true }));
+
+      const timeout = new Promise((resolve) => setTimeout(resolve, 4000));
+
+      function buildGrid() {
+        const columns = Math.min(32, Math.max(12, Math.ceil(window.innerWidth / 45)));
+        const rows = Math.min(30, Math.max(14, Math.ceil(window.innerHeight / 45)));
+
+        const fragment = document.createDocumentFragment();
+        for (let row = 0; row < rows; row += 1) {
+          for (let column = 0; column < columns; column += 1) {
+            const block = document.createElement('span');
+            block.className = 'initial-reveal-block';
+            block.dataset.row = row;
+            block.dataset.column = column;
+            block.style.left = `${(column * 100) / columns}%`;
+            block.style.top = `${(row * 100) / rows}%`;
+            block.style.width = `calc(${100 / columns}% + 1px)`;
+            block.style.height = `calc(${100 / rows}% + 1px)`;
+            fragment.appendChild(block);
+          }
+        }
+        reveal.appendChild(fragment);
+      }
+
+      function removeReveal() {
+        if (reducedMotion) {
+          reveal.remove();
+          return;
+        }
+
+        const blocks = reveal.querySelectorAll('.initial-reveal-block');
+        blocks.forEach((block) => {
+          const row = Number(block.dataset.row);
+          const column = Number(block.dataset.column);
+          const verticalProgress = row / Math.max(1, Number(blocks[blocks.length - 1].dataset.row));
+          const randomVariation = Math.floor(Math.random() * 260);
+          block.style.transitionDelay = `${Math.floor(verticalProgress * 760) + randomVariation}ms`;
+          block.classList.add('is-cleared');
+        });
+
+        const duration = 240 + 760 + 260 + 120;
+        setTimeout(() => reveal.remove(), duration);
+      }
+
+      buildGrid();
+      Promise.race([Promise.all([preloadCriticalImages, pageLoaded]), timeout]).then(removeReveal);
+    })();
   </script>
 </body>
 
