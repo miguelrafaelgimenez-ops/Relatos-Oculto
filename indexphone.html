@@ -3613,6 +3613,38 @@
       document.addEventListener('keydown', startAudio, { once: true });
     })();
   </script>
+  <script>
+    (() => {
+      let soundContext;
+      document.addEventListener('click', (event) => {
+        const control = event.target.closest('button, [role="button"], .btn, .btn-back, .nav-arrow-btn');
+        if (!control || control.disabled || control.getAttribute('aria-disabled') === 'true' || control.classList.contains('disabled')) return;
+
+        const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+        if (!AudioContextClass) return;
+        soundContext ??= new AudioContextClass();
+        if (soundContext.state === 'suspended') void soundContext.resume();
+
+        const oscillator = soundContext.createOscillator();
+        const volume = soundContext.createGain();
+        const now = soundContext.currentTime;
+        oscillator.type = 'triangle';
+        oscillator.frequency.setValueAtTime(880, now);
+        oscillator.frequency.exponentialRampToValueAtTime(440, now + 0.045);
+        volume.gain.setValueAtTime(0.055, now);
+        volume.gain.exponentialRampToValueAtTime(0.001, now + 0.055);
+        oscillator.connect(volume);
+        volume.connect(soundContext.destination);
+        oscillator.start(now);
+        oscillator.stop(now + 0.06);
+
+        if (control.matches('.story-btn-read') && event.button === 0 && !event.metaKey && !event.ctrlKey && !event.shiftKey && !event.altKey && control.target !== '_blank') {
+          event.preventDefault();
+          window.setTimeout(() => { window.location.href = control.href; }, 100);
+        }
+      });
+    })();
+  </script>
 </body>
 
 </html>
