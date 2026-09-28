@@ -2327,12 +2327,17 @@
     #initial-reveal.is-hidden { pointer-events: none; }
     .initial-reveal-block { position: absolute !important; display: block !important; min-width: 0; min-height: 0; margin: 0 !important; padding: 0 !important; border: 0 !important; background: #5a321f; opacity: 1; transform: scale(1); transition: opacity 240ms ease, transform 240ms ease; }
     .initial-reveal-block.is-cleared { opacity: 0; transform: scale(0.96); }
+    #site-audio-toggle { position: fixed; right: 20px; bottom: 20px; z-index: 1000; width: 44px; height: 44px; border: 1px solid rgba(255, 239, 207, 0.55); border-radius: 50%; background: #5a321f; color: #fff1d2; display: grid; place-items: center; padding: 0; cursor: pointer; font-size: 21px; line-height: 1; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.28); }
+    #site-audio-toggle:hover, #site-audio-toggle:focus-visible { background: #70432b; }
+    #site-audio-toggle svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
     @media (prefers-reduced-motion: reduce) { .initial-reveal-block { transition: none; } }
   </style>
 </head>
 
 <body>
   <div id="initial-reveal" aria-hidden="true"></div>
+  <audio id="site-ambient-audio" src="audio/relatos-ocultos.mp3" autoplay loop preload="auto" aria-label="Música ambiental de Relatos Ocultos"></audio>
+  <button id="site-audio-toggle" type="button" aria-label="Activar música" aria-pressed="false"></button>
 
   <!-- Rutas de recorte SVG dinámicas -->
   <svg width="0" height="0" style="position: absolute;">
@@ -3249,6 +3254,41 @@
       }
       buildGrid();
       Promise.race([Promise.all([preloadCriticalImages, pageLoaded]), timeout]).then(removeReveal);
+    })();
+  </script>
+  <script>
+    (() => {
+      const audio = document.getElementById('site-ambient-audio');
+      const toggle = document.getElementById('site-audio-toggle');
+      if (!audio || !toggle) return;
+      const updateButton = () => {
+        const playing = !audio.paused && !audio.muted;
+        toggle.innerHTML = playing
+          ? '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4V5Z"></path><path d="M15.5 8.5a5 5 0 0 1 0 7"></path><path d="M18.5 5.5a9 9 0 0 1 0 13"></path></svg>'
+          : '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4V5Z"></path><path d="m17 9 4 6"></path><path d="m21 9-4 6"></path></svg>';
+        toggle.setAttribute('aria-label', playing ? 'Silenciar música' : 'Activar música');
+        toggle.setAttribute('aria-pressed', String(playing));
+      };
+      const startAudio = () => {
+        if (audio.muted) return;
+        void audio.play().then(updateButton).catch(updateButton);
+        document.removeEventListener('pointerdown', startAudio);
+        document.removeEventListener('keydown', startAudio);
+      };
+      toggle.addEventListener('click', () => {
+        if (audio.paused || audio.muted) {
+          audio.muted = false;
+          void audio.play().then(updateButton).catch(updateButton);
+        } else {
+          audio.pause();
+          updateButton();
+        }
+      });
+      audio.addEventListener('play', updateButton);
+      audio.addEventListener('pause', updateButton);
+      updateButton();
+      document.addEventListener('pointerdown', startAudio, { once: true, passive: true });
+      document.addEventListener('keydown', startAudio, { once: true });
     })();
   </script>
 </body>
