@@ -1072,6 +1072,12 @@
       line-height: 1.9;
     }
 
+    /* Separación del marco introductorio del apartado «¿Para qué...?». */
+    .builder > .about-inner > .about-paper-card {
+      margin-top: 1.5rem;
+      margin-bottom: 3rem;
+    }
+
     .journal-wrapper {
       max-width: 1100px;
       width: 100%;
@@ -2049,6 +2055,377 @@
       }
     }
 
+    /* Ajustes finales para pantallas táctiles y teléfonos pequeños. */
+    @media (max-width: 768px) {
+      html,
+      body {
+        width: 100%;
+        max-width: 100%;
+        overflow-x: hidden;
+      }
+
+      section,
+      .hero,
+      .about,
+      .download,
+      .journal-section,
+      .team-section {
+        max-width: 100%;
+        overflow: hidden;
+      }
+
+      nav {
+        height: 100dvh;
+        padding-top: 4.5rem;
+        overscroll-behavior: contain;
+      }
+
+      .nav-toggle {
+        z-index: 1100;
+        width: 46px;
+        height: 46px;
+      }
+
+      .hero-content,
+      .about-inner,
+      .journal,
+      .features-grid,
+      .team-grid,
+      .download-cards-container {
+        min-width: 0;
+      }
+
+      .hero-title-card {
+        width: 100%;
+        max-width: 100%;
+        overflow: hidden;
+      }
+
+      .hero-subtitle,
+      .hero-title,
+      .hero-gametitle,
+      h1,
+      h2,
+      h3,
+      p,
+      li {
+        overflow-wrap: anywhere;
+        word-break: normal;
+      }
+
+      .collage-item-wrapper {
+        width: min(100%, 320px);
+      }
+
+      .photo-frame {
+        width: 100%;
+        padding: 0.65rem 0.65rem 2.4rem;
+        overflow: hidden;
+      }
+
+      .photo-frame img,
+      .landmark-illustration {
+        width: 100%;
+        height: clamp(155px, 48vw, 205px);
+        object-fit: cover;
+      }
+
+      .photo-caption {
+        margin-top: 0.55rem;
+        font-size: 0.9rem;
+        line-height: 1.35;
+      }
+
+      .story-image-wrap,
+      .team-avatar-frame,
+      #level-image-container {
+        max-width: 100%;
+      }
+
+      img,
+      video,
+      iframe {
+        max-width: 100%;
+      }
+
+      input,
+      select,
+      textarea,
+      button,
+      .btn {
+        max-width: 100%;
+      }
+    }
+
+    @media (max-width: 480px) {
+      body {
+        font-size: 1rem;
+        line-height: 1.65;
+      }
+
+      section {
+        padding-left: 1rem;
+        padding-right: 1rem;
+      }
+
+      .hero-title-card {
+        padding: 1.5rem 1rem;
+      }
+
+      .btn {
+        width: 100%;
+        padding-left: 1rem;
+        padding-right: 1rem;
+        letter-spacing: 0.1em;
+      }
+
+      .photo-frame img,
+      .landmark-illustration {
+        height: clamp(145px, 52vw, 185px);
+      }
+
+      #site-audio-toggle {
+        right: 12px;
+        bottom: 12px;
+      }
+    }
+
+    /* Composición optimizada para móviles estrechos (incluido Moto G Power). */
+    @media (max-width: 430px) {
+      section {
+        padding-top: 3rem;
+        padding-bottom: 3rem;
+      }
+
+      .hero {
+        padding-top: 4.5rem;
+        padding-bottom: 2rem;
+      }
+
+      .hero-title-card {
+        padding: 1.35rem 0.9rem 1.5rem;
+      }
+
+      .hero-title {
+        font-size: clamp(1.9rem, 10vw, 2.65rem);
+        line-height: 1.05;
+      }
+
+      .hero-subtitle {
+        font-size: 0.82rem;
+        letter-spacing: 0.14em;
+      }
+
+      .hero-gametitle {
+        font-size: 0.78rem;
+        letter-spacing: 0.08em;
+      }
+
+      .hero-collage {
+        gap: 1rem;
+        margin-top: 1.25rem;
+      }
+
+      .collage-item-wrapper {
+        max-width: 300px;
+      }
+
+      .photo-frame {
+        padding: 0.5rem 0.5rem 2rem;
+      }
+
+      .photo-frame img,
+      .landmark-illustration {
+        height: 158px;
+      }
+
+      .photo-caption {
+        font-size: 0.8rem;
+      }
+
+      .section-title {
+        font-size: clamp(1.45rem, 7vw, 2rem);
+        line-height: 1.15;
+        letter-spacing: 0.045em;
+      }
+
+      .ornament {
+        margin-bottom: 1.1rem;
+      }
+
+      .about-paper-card,
+      .journal,
+      .team-card,
+      .download-card {
+        border-radius: 2px;
+      }
+
+      .about-paper-card {
+        padding: 1.5rem 1rem;
+        margin-bottom: 1.5rem;
+      }
+
+      /* Más papel arriba y abajo para contener todo el texto del apartado. */
+      .builder > .about-inner > .about-paper-card {
+        padding-top: 3rem;
+        padding-bottom: 3.4rem;
+        margin-top: 1.25rem;
+        margin-bottom: 3rem;
+      }
+
+      /* Más espacio vertical para el marco introductorio de «RELATOS». */
+      .stories > .about-inner > .about-paper-card {
+        padding-top: 3rem;
+        padding-bottom: 3.4rem;
+        margin-top: 1.25rem;
+        margin-bottom: 3rem;
+      }
+
+      .features-grid,
+      .team-grid {
+        gap: 0.9rem;
+        margin-top: 1.5rem;
+      }
+
+      .feature-card {
+        min-height: 0;
+        padding: 1.35rem 1rem;
+      }
+
+      .feature-title {
+        font-size: 1rem;
+      }
+
+      .feature-desc {
+        font-size: 0.85rem;
+        line-height: 1.45;
+      }
+
+      .story-card {
+        width: 100%;
+        max-width: 100%;
+        padding: 1.9rem 1.45rem 1.75rem;
+        margin-left: 0.35rem;
+        margin-right: 0.35rem;
+        overflow: hidden;
+      }
+
+      .story-image-wrap {
+        width: 100%;
+        max-width: none;
+        height: 170px;
+        margin-bottom: 1rem;
+      }
+
+      .story-title {
+        font-size: 1.2rem;
+      }
+
+      .story-desc {
+        font-size: 0.9rem;
+        line-height: 1.5;
+        overflow-wrap: anywhere;
+      }
+
+      .story-btn-read,
+      .story-link-play {
+        font-size: 0.75rem;
+      }
+
+      .builder .about-paper-card {
+        margin-bottom: 1.25rem;
+      }
+
+      .journal-wrapper {
+        margin-top: 1.25rem;
+      }
+
+      .journal {
+        padding: 1rem 0.75rem;
+        gap: 1rem;
+      }
+
+      .journal-left,
+      .journal-right {
+        min-width: 0;
+      }
+
+      .builder-title {
+        font-size: 1.15rem;
+        line-height: 1.2;
+      }
+
+      .builder-desc,
+      .builder-bullets li {
+        font-size: 0.88rem;
+        line-height: 1.5;
+      }
+
+      .level-viewport {
+        padding: 0.4rem 0.4rem 0.75rem;
+      }
+
+      #level-image-container {
+        height: 145px;
+      }
+
+      .team-card {
+        padding: 1.25rem 1rem;
+      }
+
+      .team-avatar-frame {
+        width: 118px;
+        height: 118px;
+        margin-bottom: 0.9rem;
+      }
+
+      .team-name {
+        font-size: 1rem;
+      }
+
+      .team-role,
+      .team-bio {
+        font-size: 0.82rem;
+        line-height: 1.45;
+      }
+
+      .download-card-description {
+        font-size: 0.88rem;
+      }
+
+      /* Las tres piezas del collage deben conservar la misma escala visual. */
+      .hero-collage .collage-item-wrapper,
+      .hero-collage .item-center {
+        width: min(100%, 300px);
+        max-width: 300px;
+        margin: 0.35rem auto;
+      }
+
+      .hero-collage .photo-frame,
+      .hero-collage .item-center .photo-frame {
+        width: 100%;
+        height: 204px;
+        min-height: 204px;
+        padding: 0.5rem 0.5rem 2rem;
+      }
+
+      .hero-collage .photo-frame img,
+      .hero-collage .landmark-illustration,
+      .hero-collage .item-center .photo-frame img,
+      .hero-collage .item-center .landmark-illustration {
+        width: 100%;
+        height: 158px;
+        min-height: 158px;
+        max-height: 158px;
+        object-fit: cover;
+      }
+
+      .hero-collage .photo-caption {
+        min-height: 1.1rem;
+        margin-top: 0.35rem;
+      }
+    }
+
     /* ============================================
        BARRA LATERAL — Clases adicionales
        ============================================ */
@@ -2395,7 +2772,7 @@
             <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
             <path d="M4 4.5A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5v-15z" />
           </svg>
-          Historias
+          Relato
         </a>
       </li>
       <li>
@@ -2665,7 +3042,7 @@
     <section id="paraque" class="builder">
       <div class="about-inner" data-aos="fade-up" data-aos-duration="1000">
         <div class="about-paper-card">
-          <h2 class="section-title">¿Para que de nuestro Proyecto?</h2>
+          <h2 class="section-title">¿Para qué es nuestro Proyecto?</h2>
           <div class="divider" aria-hidden="true"></div>
           <p class="about-text" style="max-width: 700px; margin: 1.5rem auto 0; font-weight: 600;">
             Queremos que más personas puedan descubrir nuestra historia desde una forma distinta.
@@ -3101,9 +3478,9 @@
         caption: "Ecos del Llanto",
         bullets: [
           "El camino que transcurre Karãu",
-          "El elemento del propósito inicial de Karãu",
-          "Lo poco que resultó ser importante para el Karãu la vida de su madre",
-          "El castigo inferido por Dios"
+          "El propósito inicial de Karãu",
+          "La importancia que tuvo la vida de su madre para Karãu",
+          "El castigo impuesto por Dios"
         ]
       }
     };
