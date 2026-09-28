@@ -307,6 +307,24 @@
       filter: url(#sticker-border);
       transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
       will-change: transform;
+      opacity: 0;
+      animation: sticker-arrive 1.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+
+    .sticker-sombrero img { animation-delay: 100ms; }
+    .sticker-arpa img { animation-delay: 260ms; }
+    .sticker-terere img { animation-delay: 420ms; }
+    .sticker-nanduti img { animation-delay: 580ms; }
+
+    @keyframes sticker-arrive {
+      from {
+        opacity: 0;
+        transform: translateY(42px) scale(0.88);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
     }
 
     /* Posicionamiento base y animaciones ambientales orgánicas de brisa */
@@ -343,15 +361,15 @@
 
       0%,
       100% {
-        transform: rotate(-6deg) translateY(0);
+        transform: rotate(-1.5deg) translateY(0);
       }
 
       35% {
-        transform: rotate(-4deg) translateY(-3px);
+        transform: rotate(-0.5deg) translateY(-1px);
       }
 
       70% {
-        transform: rotate(-8deg) translateY(2px);
+        transform: rotate(-2deg) translateY(1px);
       }
     }
 
@@ -359,15 +377,15 @@
 
       0%,
       100% {
-        transform: rotate(6deg) translateY(0);
+        transform: rotate(1.5deg) translateY(0);
       }
 
       40% {
-        transform: rotate(8deg) translateY(-2px);
+        transform: rotate(2deg) translateY(-1px);
       }
 
       75% {
-        transform: rotate(4deg) translateY(2px);
+        transform: rotate(0.5deg) translateY(1px);
       }
     }
 
@@ -375,15 +393,15 @@
 
       0%,
       100% {
-        transform: rotate(4deg) translateY(0);
+        transform: rotate(1deg) translateY(0);
       }
 
       45% {
-        transform: rotate(2deg) translateY(2px);
+        transform: rotate(0deg) translateY(1px);
       }
 
       80% {
-        transform: rotate(6deg) translateY(-3px);
+        transform: rotate(2deg) translateY(-1px);
       }
     }
 
@@ -391,15 +409,15 @@
 
       0%,
       100% {
-        transform: rotate(-5deg) translateY(0);
+        transform: rotate(-1deg) translateY(0);
       }
 
       30% {
-        transform: rotate(-7deg) translateY(-2px);
+        transform: rotate(-2deg) translateY(-1px);
       }
 
       65% {
-        transform: rotate(-3deg) translateY(1px);
+        transform: rotate(0deg) translateY(1px);
       }
     }
 
@@ -417,6 +435,13 @@
     @media (max-width: 1024px) {
       .hero-sticker-container {
         display: none !important;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .hero-sticker img {
+        opacity: 1;
+        animation: none;
       }
     }
 
@@ -2230,7 +2255,7 @@
 
 <body>
   <div id="initial-reveal" aria-hidden="true"></div>
-  <audio id="site-ambient-audio" src="audio/relatos-ocultos.mp3" autoplay loop preload="auto" aria-label="Música ambiental de Relatos Ocultos"></audio>
+  <audio id="site-ambient-audio" src="audio/relatos-ocultos.mp3" loop preload="auto" muted aria-label="Música ambiental de Relatos Ocultos"></audio>
   <button id="site-audio-toggle" type="button" aria-label="Activar música" aria-pressed="false"></button>
 
   <!-- Rutas de recorte SVG dinámicas (100% vectoriales, responsivas, 0ms de solicitud de red) -->
@@ -2559,7 +2584,7 @@
                 <span class="story-badge">Nivel 3</span>
                 <div class="story-image-wrap">
                   <div class="landmark-illustration" aria-label="Ecos del Llanto, ESTEROS" role="img">
-                    <img src="images/Ecos_del_Llanto.png" alt="Ecos del Llanto" />
+                    <img src="images/Ecos_del_Llanto.jpg" alt="Ecos del Llanto" />
                   </div>
                 </div>
                 <span class="story-location">ESTEROS</span>
@@ -2630,42 +2655,151 @@
               style="border: 2px solid var(--sepia-dark); background: #faf4e5; padding: 0.75rem 0.75rem 1.5rem; box-shadow: 2px 2px 10px rgba(0,0,0,0.1); transform: rotate(-0.5deg); transition: transform 0.3s ease;">
               <div id="level-image-container"
                 style="width: 100%; height: 170px; overflow: hidden; border: 1px solid rgba(0,0,0,0.1); background: #eee; clip-path: url(#torn-photo-1); transition: opacity 0.25s ease;">
-                <!-- SVG Nivel 1 -->
+                <!-- Nivel 1: camino rural y monte bajo del Chaco; paisaje sin personajes. -->
                 <svg id="svg-level-1" viewBox="0 0 330 180" xmlns="http://www.w3.org/2000/svg"
-                  style="width: 100%; height: 100%; object-fit: cover;">
-                  <rect width="330" height="180" fill="#e0cfa5" />
-                  <circle cx="165" cy="110" r="45" fill="#8c6a42" opacity="0.3" />
-                  <line x1="165" y1="150" x2="165" y2="90" stroke="#1e1107" stroke-width="3" />
-                  <line x1="165" y1="110" x2="140" y2="100" stroke="#1e1107" stroke-width="2.5" />
-                  <line x1="165" y1="100" x2="195" stroke="#1e1107" stroke-width="2.5" />
-                  <circle cx="240" cy="50" r="15" fill="#d49a37" />
-                  <text x="20" y="40" font-family="'Cinzel', serif" font-size="16" fill="#1e1107"
-                    font-weight="700">Chaco Paraguayo</text>
+                  preserveAspectRatio="xMidYMid slice" role="img"
+                  aria-label="Ilustración del Chaco paraguayo con camino de tierra, cercas, árboles y un rancho distante"
+                  style="width: 100%; height: 100%; display: block;">
+                  <defs>
+                    <linearGradient id="chaco-sky" x2="0" y2="1"><stop stop-color="#c9c09e"/><stop offset="1" stop-color="#f0dfba"/></linearGradient>
+                    <linearGradient id="chaco-ground" x2="0" y2="1"><stop stop-color="#9e875c"/><stop offset="1" stop-color="#68513a"/></linearGradient>
+                    <pattern id="chaco-pencil" width="9" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(-18)">
+                      <path d="M1 0v8M6 0v8" stroke="#332e25" stroke-width=".45" opacity=".28"/>
+                    </pattern>
+                  </defs>
+                  <rect width="330" height="180" fill="url(#chaco-sky)"/>
+                  <path d="M0 73q22-8 42 0t45 0q20-8 43 0t48 0q24-9 48 0t51-2q26-7 53 1v107H0z" fill="url(#chaco-ground)"/>
+                  <path d="M0 73q22-8 42 0t45 0q20-8 43 0t48 0q24-9 48 0t51-2q26-7 53 1v107H0z" fill="url(#chaco-pencil)"/>
+                  <path d="M0 70q28-9 52 0t47 0q22-8 44 0t48-1q28-8 50 0t48-1q22-6 41 0" fill="none" stroke="#454332" stroke-width="1.4"/>
+                  <circle cx="265" cy="35" r="13" fill="#d7a45e" opacity=".85"/>
+                  <path d="M0 61q15-8 31 0m7-3q14-8 29 0m166 5q15-9 30 0m23-4q18-8 34 0" fill="none" stroke="#f5ebd1" stroke-width="2" opacity=".7"/>
+                  <!-- scrub trees, hand-inked trunks and crowns -->
+                  <g fill="none" stroke="#38372b" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M47 79q4-31 2-56m1 20Q35 28 27 31m23 12q10-15 20-17M89 76q4-24 2-43m1 16q-12-12-19-12m20 9q9-13 18-14M282 75q3-27 1-48m1 17q-12-12-20-13m21 9q9-14 19-15" stroke-width="2.1"/>
+                    <path d="M22 32q12-5 28 11M51 43q7-14 18-19M74 36q10-4 19 10m171-1q12-5 19 9m-18-5q7-13 17-17m2 19q9-14 19-17" stroke-width="1.3"/>
+                  </g>
+                  <g fill="#646448" opacity=".88">
+                    <ellipse cx="31" cy="30" rx="12" ry="4" transform="rotate(24 31 30)"/><ellipse cx="69" cy="25" rx="13" ry="4" transform="rotate(-28 69 25)"/>
+                    <ellipse cx="83" cy="36" rx="12" ry="4" transform="rotate(25 83 36)"/><ellipse cx="271" cy="30" rx="12" ry="4" transform="rotate(26 271 30)"/><ellipse cx="301" cy="27" rx="13" ry="4" transform="rotate(-27 301 27)"/>
+                  </g>
+                  <!-- small distant rancho from the reference landscape -->
+                  <path d="M215 71V52l19-12 22 12v20z" fill="#bd9d6d" stroke="#463b2b" stroke-width="1.5"/>
+                  <path d="M210 53l24-16 26 16" fill="#725b3c" stroke="#40372a" stroke-width="2"/>
+                  <path d="M229 71V59h8v12m10-12h5v8h-5" fill="#57432f"/>
+                  <!-- dirt road converging toward the horizon -->
+                  <path d="M99 180q28-40 48-65 14-18 17-42h14q1 25 17 43 22 28 45 64z" fill="#d4b783" stroke="#51432f" stroke-width="1.8"/>
+                  <path d="M106 180q33-48 53-66m74 66q-30-43-52-67" fill="none" stroke="#f0dfba" stroke-width="2.2" opacity=".85"/>
+                  <path d="M165 177q-1-15 4-23m-4-10 4-9m-1-13 3-8" fill="none" stroke="#8d714b" stroke-width="1.3" stroke-dasharray="4 5"/>
+                  <!-- receding fence lines and rough-cut posts -->
+                  <g fill="none" stroke="#40372a" stroke-linecap="round">
+                    <path d="M0 83l111 23M0 90l106 27m224-34-111 23m111-16-106 27" stroke-width="1.2"/>
+                    <path d="M14 86l-1 17m25-12-1 18m29-12-1 18m35-12-1 15m218-26 1 17m-25-12 1 18m-29-12 1 18m-35-12 1 16" stroke-width="2"/>
+                  </g>
+                  <path d="M8 145q15-5 26 0m-18 5q14-4 26 1m245-12q15-5 26 0m-20 6q12-4 24 1" fill="none" stroke="#342e25" stroke-width="1" opacity=".55"/>
+                  <image href="images/camino_a_la_fiesta_boceto.png" x="0" y="0" width="330" height="180" preserveAspectRatio="xMidYMid slice"/>
                 </svg>
-                <!-- SVG Nivel 2 -->
+                <!-- Nivel 2: bosque nocturno y yerbales del Alto Paraná, sin personajes. -->
                 <svg id="svg-level-2" viewBox="0 0 330 180" xmlns="http://www.w3.org/2000/svg"
-                  style="width: 100%; height: 100%; object-fit: cover; display: none;">
-                  <rect width="330" height="180" fill="#ced9bc" />
-                  <path d="M60 150 L90 80 L120 150 Z" fill="#4a5e28" opacity="0.6" />
-                  <path d="M120 160 L160 70 L200 160 Z" fill="#3a4f18" opacity="0.75" />
-                  <path d="M190 150 L220 90 L250 150 Z" fill="#4a5e28" opacity="0.5" />
-                  <line x1="90" y1="150" x2="90" y2="130" stroke="#1e1107" stroke-width="2" />
-                  <line x1="160" y1="160" x2="160" y2="120" stroke="#1e1107" stroke-width="3" />
-                  <text x="20" y="40" font-family="'Cinzel', serif" font-size="16" fill="#1e1107"
-                    font-weight="700">Yerbales de Alto Paraná</text>
+                  preserveAspectRatio="xMidYMid slice" role="img"
+                  aria-label="Ilustración nocturna de bosque y yerbales del Alto Paraná con un sendero bajo la luna"
+                  style="width: 100%; height: 100%; display: none;">
+                  <defs>
+                    <linearGradient id="yerbal-sky" x2="0" y2="1"><stop stop-color="#101725"/><stop offset=".65" stop-color="#1d302b"/><stop offset="1" stop-color="#39543a"/></linearGradient>
+                    <linearGradient id="yerbal-hill" x2="0" y2="1"><stop stop-color="#315b32"/><stop offset="1" stop-color="#173625"/></linearGradient>
+                    <radialGradient id="yerbal-moon-glow"><stop stop-color="#d9e3b6" stop-opacity=".36"/><stop offset="1" stop-color="#d9e3b6" stop-opacity="0"/></radialGradient>
+                    <pattern id="yerbal-hatch" width="8" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-25)">
+                      <path d="M1 0v9M5 0v9" stroke="#b7c98b" stroke-width=".55" opacity=".34"/>
+                    </pattern>
+                  </defs>
+                  <!-- fondo: noche, luna y primeras lomas en silueta -->
+                  <rect width="330" height="180" fill="url(#yerbal-sky)"/>
+                  <circle cx="174" cy="45" r="43" fill="url(#yerbal-moon-glow)"/>
+                  <circle cx="174" cy="45" r="19" fill="#dce1bd" opacity=".92"/>
+                  <path d="M167 37q7-4 13 0m-17 9q7-3 13 0m-4 8q6-3 12 0" fill="none" stroke="#9ba58c" stroke-width=".8" opacity=".55"/>
+                  <g fill="#e4e1c8" opacity=".8"><circle cx="24" cy="23" r="1.1"/><circle cx="51" cy="39" r=".8"/><circle cx="84" cy="18" r="1"/><circle cx="120" cy="31" r=".8"/><circle cx="226" cy="20" r="1"/><circle cx="278" cy="34" r=".8"/><circle cx="308" cy="18" r="1"/></g>
+                  <path d="M0 91C27 79 47 76 68 83c20 6 31 3 48-7 21-13 39-13 58-3 19 10 30 12 48 2 20-12 43-13 61-2 19 11 29 12 47 6v50H0z" fill="#263f30" opacity=".92"/>
+                  <!-- distancia: copas irregulares que dejan respirar la luna -->
+                  <path d="M0 105c13-8 18-23 29-24 8 0 12 14 20 15 8 0 12-19 23-21 10-2 14 17 23 18 9 1 15-17 25-18 11-1 15 15 25 16 9 1 17-14 28-13 11 1 13 18 23 18 9 0 15-16 25-17 10-1 14 15 24 16 9 1 16-15 27-15 11 0 15 17 28 18v40H0z" fill="#173324" stroke="#10271d" stroke-width="1.2"/>
+                  <path d="M0 111c22-12 36-7 48-2 12 6 22 3 34-5 15-10 25-9 37-1 13 9 22 10 35 2 15-10 26-11 39-2 13 8 23 9 36 1 14-9 28-9 41-1 14 8 25 9 37 3 8-4 15-4 23-1v42H0z" fill="#2c5933" stroke="#183b29" stroke-width="1"/>
+                  <!-- plano medio: troncos curvos, en grupos y a distintas distancias -->
+                  <g fill="none" stroke="#142b20" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M25 137c4-19 5-39 2-63m1 27C19 91 12 86 7 79m21 31c7-11 13-18 20-21M78 126c2-17 3-34 1-51m1 29C73 95 66 91 59 89m21 26c6-10 12-16 19-20M123 117c3-16 3-31 1-47m1 27c-7-8-13-12-19-14m20 22c6-9 11-14 18-18M240 119c5-19 6-39 3-60m2 28c-8-10-15-15-22-17m23 30c7-11 13-17 20-20M291 131c3-19 4-37 2-57m2 27c-7-8-12-12-18-14m18 25c7-10 13-15 20-18" stroke-width="1.8"/>
+                    <path d="M7 82c9-3 16 2 22 14m-4-11c-6 5-8 10-6 16m39-11c8-4 15 0 22 11m-20-7c-6 6-7 11-5 16m153-44c10-2 18 3 24 13m-21-8c-6 5-8 10-6 16m59-10c9-3 15 1 21 11m-19-7c-6 5-7 10-5 15" stroke-width="1.05" opacity=".9"/>
+                  </g>
+                  <!-- lomas cubiertas de yerba, con contorno ondulado -->
+                  <path d="M0 119c24-10 42-10 60-2 16 7 29 8 43 2 16-7 29-8 43-2 17 8 30 9 47 2 17-7 32-7 48 1 17 9 30 9 47 2 15-6 28-6 42-1v59H0z" fill="url(#yerbal-hill)" stroke="#172d21" stroke-width="1.4"/>
+                  <path d="M0 119c24-10 42-10 60-2 16 7 29 8 43 2 16-7 29-8 43-2 17 8 30 9 47 2 17-7 32-7 48 1 17 9 30 9 47 2 15-6 28-6 42-1v59H0z" fill="url(#yerbal-hatch)"/>
+                  <!-- matorrales y yerbales en grupos de tamaños variados -->
+                  <g fill="#567746" stroke="#203b2a" stroke-width="1">
+                    <path d="M5 139c1-7 6-11 12-10 3-7 9-8 13-2 7-2 12 2 13 8 5 3 5 8 1 11H7c-3-2-4-4-2-7zm47-8c1-6 6-9 11-8 3-6 8-7 12-2 7-2 11 2 12 7 5 3 5 7 1 10H53c-2-2-3-4-1-7zm73-11c1-7 6-10 12-9 3-6 8-7 12-2 7-2 11 2 12 8 4 3 4 7 0 10h-35c-3-2-3-4-1-7zm61 8c1-6 6-9 11-8 3-6 8-7 12-2 7-2 11 2 12 7 5 3 5 7 1 10h-35c-2-2-3-4-1-7zm69 12c1-7 6-10 12-9 3-6 8-7 12-2 7-2 11 2 12 8 4 3 4 7 0 10h-35c-3-2-3-4-1-7zm54-2c1-6 5-9 10-8 3-6 8-7 12-2 7-2 11 2 12 7 5 3 5 7 1 10h-33c-3-2-4-4-2-7z"/>
+                  </g>
+                  <g fill="none" stroke="#b7c58a" stroke-width=".9" opacity=".68">
+                    <path d="M12 139c4-2 7-6 8-10m5 13c4-3 6-7 7-11m29 7c4-3 6-7 7-11m7 12c4-3 6-7 7-11m58 1c4-3 6-7 7-11m8 13c4-3 6-7 7-11m44 10c4-3 6-7 7-11m8 13c4-3 6-7 7-11m56 18c4-3 6-7 7-11m8 13c4-3 6-7 7-11m39 6c4-3 6-7 7-11"/>
+                  </g>
+                  <!-- sendero sinuoso: se estrecha hacia el claro y se abre al frente -->
+                  <path d="M109 180c12-18 34-31 51-48 14-9 17-16 7-24-7-7-17-11-19-17-2-7 10-10 20-7l12 3c-10 2-19 4-19 9 0 6 15 10 27 20 17 15 13 32-4 49-17 16-30 27-36 33-8 7-14 14-19 20z" fill="#c1a878" stroke="#493f2e" stroke-width="1.4"/>
+                  <path d="M116 178c13-18 33-31 49-47 13-13 15-22 6-32-6-6-14-9-16-14m26 5c-7 2-13 4-13 9 0 6 15 10 26 20 11 10 15 21 10 31-5 10-14 19-23 27-10 9-20 17-28 26" fill="none" stroke="#ead9b1" stroke-width="1.25" opacity=".82"/>
+                  <!-- primer plano: helechos y hojas enmarcan el camino -->
+                  <g fill="#21452d" stroke="#142d20" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M0 180c7-14 13-24 23-34-2 11-5 19-10 27 9-10 17-17 27-22-4 10-10 18-18 25 12-6 22-9 33-10-10 7-18 12-27 14zm330 0c-7-14-13-24-23-34 2 11 5 19 10 27-9-10-17-17-27-22 4 10 10 18 18 25-12-6-22-9-33-10 10 7 18 12 27 14z"/>
+                    <path d="M39 180c5-10 8-18 9-29m-5 16-9-8m12 1 10-10m223 30c-5-10-8-18-9-29m5 16 9-8m-12 1-10-10" fill="none" stroke="#a2b778" stroke-width="1.05" opacity=".72"/>
+                  </g>
+                  <!-- trazos sueltos de lápiz sobre el terreno -->
+                  <path d="M7 158c9-5 17-5 25-1m-19 7c8-4 15-4 22-1m247-13c8-5 16-5 24-1m-18 8c8-4 15-4 22-1M92 151c7-3 13-3 19 0m118 8c7-3 13-3 19 0" fill="none" stroke="#172d21" stroke-width=".9" opacity=".55"/>
+                  <image href="images/infierno_verde.jpg" x="0" y="0" width="330" height="180" preserveAspectRatio="xMidYMid slice"/>
                 </svg>
-                <!-- SVG Nivel 3 -->
+                <!-- Nivel 3: paisaje de vegetación y un ave zancuda, sin lagunas. -->
                 <svg id="svg-level-3" viewBox="0 0 330 180" xmlns="http://www.w3.org/2000/svg"
-                  style="width: 100%; height: 100%; object-fit: cover; display: none;">
-                  <rect width="330" height="180" fill="#c3cbb8" />
-                  <!-- Representación del esbozo del ave en líneas SVG -->
-                  <path d="M120 120 C130 90, 160 80, 180 90 C200 100, 210 120, 200 140 C190 150, 150 160, 120 120 Z"
-                    fill="none" stroke="#1c120c" stroke-width="2.5" />
-                  <line x1="180" y1="90" x2="210" y2="85" stroke="#1c120c" stroke-width="2" />
-                  <polyline points="150 145 140 165 145 165" stroke="#1c120c" stroke-width="2" fill="none" />
-                  <polyline points="170 145 165 165 170 165" stroke="#1c120c" stroke-width="2" fill="none" />
-                  <text x="20" y="40" font-family="'Cinzel', serif" font-size="16" fill="#1c120c" font-weight="700">El
-                    Karãu</text>
+                  preserveAspectRatio="xMidYMid slice" role="img"
+                  aria-label="Ilustración de un ave zancuda entre la vegetación del estero al atardecer"
+                  style="width: 100%; height: 100%; display: none;">
+                  <defs>
+                    <linearGradient id="estero-sky" x2="0" y2="1"><stop stop-color="#b99d98"/><stop offset=".68" stop-color="#e6c99f"/><stop offset="1" stop-color="#d0b486"/></linearGradient>
+                    <linearGradient id="ecos-landscape-extension" x2="0" y2="1"><stop stop-color="#c6a39b"/><stop offset=".44" stop-color="#bba094"/><stop offset=".53" stop-color="#788064"/><stop offset=".72" stop-color="#64714f"/><stop offset="1" stop-color="#48583b"/></linearGradient>
+                  </defs>
+                  <rect width="330" height="180" fill="url(#estero-sky)"/>
+                  <path d="M0 40q16-11 31 0 14-15 29-1 16-9 29 2m124-10q17-12 31 1 17-17 34-1 18-10 34 2" fill="none" stroke="#f3e1c4" stroke-width="2" opacity=".65"/>
+                  <circle cx="171" cy="71" r="17" fill="#d39e68" opacity=".82"/>
+                  <circle cx="171" cy="71" r="23" fill="none" stroke="#8e6c57" stroke-width="1" opacity=".45"/>
+                  <!-- distant wetland tree line -->
+                  <path d="M0 94q25-10 49-1 24-14 49-1 29-9 53 0 27-13 54 0 27-11 51-1 25-13 48-2 15-7 26-2v39H0z" fill="#69715a" stroke="#41483a" stroke-width="1.4"/>
+                  <g fill="#434b3b" stroke="#384133" stroke-width="1">
+                    <path d="M9 99q2-19 11-25 10 6 11 25m8 0q3-26 14-34 12 8 13 34m80-2q3-22 13-29 11 7 12 29m88 0q2-25 13-33 12 8 13 33m35 0q2-19 11-25 9 6 10 25m-50 1q3-29 15-37 12 7 14 37"/>
+                  </g>
+                  <!-- pradera húmeda: terreno continuo y vegetación, sin agua -->
+                  <path d="M0 119c22-5 42-4 62 0 19 4 34 3 51-2 21-6 38 1 57 2 21 0 35-7 55-4 20 2 35 8 55 4 19-4 33-4 50 1v60H0z" fill="#68704d" stroke="#434c3b" stroke-width="1.4"/>
+                  <path d="M0 153c28-7 51 2 77-1 25-4 46 4 70 0 24-4 43-1 65 2 25 3 42-7 66-4 20 2 35 0 52-3v33H0z" fill="#4e5940" opacity=".72"/>
+                  <g fill="none" stroke="#b2a477" stroke-linecap="round" stroke-linejoin="round" opacity=".65">
+                    <path d="M13 151q5-8 8-15m-8 15q-2-8-7-11m8 11q6-6 11-7m34 17q4-9 3-17m0 17q-5-8-10-10m11 10q5-7 11-9m52-5q3-8 2-15m0 15q-4-7-9-9m112 15q4-10 3-18m0 18q-5-7-11-9m31 3q5-9 4-16m0 16q-4-7-9-9m41 16q4-9 3-17m1 17q5-7 10-9m20 2q4-8 3-15m1 15q-4-6-8-8" stroke-width="1.2"/>
+                    <path d="M31 168q3-5 3-9m91 10q4-5 3-10m103 11q3-5 3-10m67 8q3-5 3-10" stroke-width=".8" opacity=".75"/>
+                  </g>
+                  <!-- ave zancuda inspirada en la referencia, integrada en el pastizal -->
+                  <ellipse cx="184" cy="168" rx="15" ry="2.6" fill="#303b2d" opacity=".35"/>
+                  <g stroke="#34382d" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M179 139c1 10 0 18-2 28m16-27c3 9 5 17 7 26" fill="none" stroke-width="1.8"/>
+                    <path d="M176 167l-5 2m5-2 3 2m21-3 5 2m-5-2-2 3" fill="none" stroke-width="1.25"/>
+                    <path d="M165 107c1 7 3 14 7 20l7 5-5 6c-7-6-12-14-14-24l-1-6z" fill="#656451" stroke-width="1.1"/>
+                    <path d="M170 124c6-7 17-10 27-6 9 3 15 9 15 15 0 7-8 12-18 13-10 1-20-2-27-7-4-4-2-10 3-15z" fill="#776b50" stroke-width="1.2"/>
+                    <path d="M175 123c7-5 16-6 24-2 3 2 6 4 8 7-5 6-14 10-24 10-5-1-9-3-12-6 0-4 1-7 4-9z" fill="#918363" stroke-width=".75"/>
+                    <path d="M195 120q8-1 13 4l7-2q-5 6-13 5z" fill="#655b44" stroke-width=".9"/>
+                    <path d="M161 107c-4-1-10 0-16 3 6-1 11 0 16 1" fill="#35372e" stroke-width=".75"/>
+                    <path d="M158 104c2-3 6-4 9-2 3 2 3 5 1 7-2 3-6 3-9 1-2-2-2-4-1-6z" fill="#62634f" stroke-width=".9"/>
+                    <circle cx="164" cy="105" r=".8" fill="#171a18" stroke="none"/>
+                    <path d="M164 103c2 3 3 7 5 10m-3-11c2 3 4 7 6 10m-3-10c2 3 4 6 6 9" fill="none" stroke="#b8b39a" stroke-width=".65" opacity=".8"/>
+                  </g>
+                  <!-- juncos y pastos enmarcan el ave desde los bordes -->
+                  <g fill="none" stroke="#354133" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M23 180q7-38 4-75m1 47q-15-16-22-29m23 18q11-20 20-24m-22-1q-4-20 2-31m1 27q-13-13-19-23M65 180q6-35 3-63m0 40q-13-15-22-26m23 16q10-17 20-21M303 180q-7-40-4-76m2 50q14-17 22-29m-23 20q-11-20-20-24m22-3q4-21-2-32m-1 27q14-13 19-23M270 180q-4-33 2-57m-1 39q-12-14-20-19m22 13q10-17 19-20" stroke-width="2"/>
+                    <path d="M115 180q4-26 1-42m1 27q-9-11-16-17m126 32q-3-25 2-41m0 28q9-10 16-15" stroke-width="1.5" opacity=".9"/>
+                  </g>
+                  <g fill="#555b43" stroke="#3b4436" stroke-width=".8">
+                    <path d="M5 108q8-5 16 0-8 3-16 0m39 5q9-5 17 0-9 3-17 0m229-5q9-5 18 0-9 3-18 0m29 6q9-5 17 0-9 3-17 0m-166 12q8-5 16 0-8 3-16 0m112 2q8-5 16 0-8 3-16 0"/>
+                  </g>
+                  <!-- matas del primer plano y trazos de pasto -->
+                  <path d="M0 166q35-10 68 1 34-12 69 1 35-11 68 1 34-10 66 0 33-8 59 0v11H0z" fill="#414d39" opacity=".82"/>
+                  <path d="M8 173l9-8m-2 12 10-8m31 5 9-8m207 8 10-9m-2 13 10-8m20 4 9-8" fill="none" stroke="#b2a477" stroke-width="1.1" opacity=".75"/>
+                  <rect width="330" height="180" fill="url(#ecos-landscape-extension)"/>
+                  <image href="images/ecos_del_llanto_escena.png" x="0" y="0" width="330" height="180" preserveAspectRatio="xMidYMid meet"/>
                 </svg>
               </div>
               <p class="photo-caption" id="level-caption"
@@ -3234,6 +3368,8 @@
       const audio = document.getElementById('site-ambient-audio');
       const toggle = document.getElementById('site-audio-toggle');
       if (!audio || !toggle) return;
+      audio.pause();
+      audio.muted = true;
       const updateButton = () => {
         const playing = !audio.paused && !audio.muted;
         toggle.innerHTML = playing
@@ -3242,26 +3378,19 @@
         toggle.setAttribute('aria-label', playing ? 'Silenciar música' : 'Activar música');
         toggle.setAttribute('aria-pressed', String(playing));
       };
-      const startAudio = () => {
-        if (audio.muted) return;
-        void audio.play().then(updateButton).catch(updateButton);
-        document.removeEventListener('pointerdown', startAudio);
-        document.removeEventListener('keydown', startAudio);
-      };
       toggle.addEventListener('click', () => {
         if (audio.paused || audio.muted) {
           audio.muted = false;
           void audio.play().then(updateButton).catch(updateButton);
         } else {
           audio.pause();
+          audio.muted = true;
           updateButton();
         }
       });
       audio.addEventListener('play', updateButton);
       audio.addEventListener('pause', updateButton);
       updateButton();
-      document.addEventListener('pointerdown', startAudio, { once: true, passive: true });
-      document.addEventListener('keydown', startAudio, { once: true });
     })();
   </script>
 </body>
