@@ -49,7 +49,7 @@
     body {
       font-family: 'Lora', serif;
       background-color: var(--parchment-dark);
-      background-image: url('images/parchment_bg_for_relatos.webp');
+      background-image: url('images/parchment_bg_for_relatos.png');
       background-size: cover;
       background-attachment: fixed;
       color: var(--ink);
@@ -890,7 +890,7 @@
       <section class="archive-right">
         <!-- Marco de foto histórica -->
         <div class="photo-frame">
-          <img src="images/....webp" alt="Previsualización histórica" id="story-image" />
+          <img src="images/....jpg" alt="Previsualización histórica" id="story-image" />
           <p class="photo-caption" id="story-caption">Captura de archivo</p>
         </div>
 
@@ -996,7 +996,7 @@
         subtitle: "¿Qué ocurrió realmente con Mateo Gamarra y por qué, casi un siglo después, su nombre continúa en la memoria popular?",
         location: "Puerto Guaraní (Alto Paraguay)",
         date: "12 de octubre de 1931",
-        image: "images/Camino_a_la_Fiesta.webp",
+        image: "images/Camino_a_la_Fiesta.jpg",
         caption: "Fotografía de época de la industria taninera en Puerto Guaraní, Chaco paraguayo. Una historia inmortalizada por la tradición oral.",
         catalogCode: "RO-1931-PG",
         catalogOrigin: "Tradición Oral y Leyenda Popular",
@@ -1005,7 +1005,7 @@
         music: "video/Mateo Gamarra.mp4",
         musicTitle: "Mateo Gamarra",
         musicArtist: "Polca Tradicional Paraguaya",
-        musicCover: "images/Camino_a_la_Fiesta.webp",
+        musicCover: "images/Camino_a_la_Fiesta.jpg",
         musicExplanation: "La polca paraguaya 'Mateo Gamarra' se transformó en el vehículo esencial para preservar este relato trágico. La música popular paraguaya suele inmortalizar hechos reales y pasionales, haciendo que la memoria colectiva perdure a través de las generaciones.",
         contentLeft: [
           {
@@ -1093,7 +1093,7 @@
         subtitle: "Los mensúes: la historia que quedó escondida entre los yerbales del Alto Paraná",
         location: "Alto Paraná y Yerbales del Litoral",
         date: "Fines del S. XIX - Mediados del S. XX",
-        image: "images/El_Infierno_Verde.webp",
+        image: "images/El_Infierno_Verde.jpg",
         caption: "Campamento de mensúes en la selva del Alto Paraná. Ilustración histórica del trabajo yerbatero y la vida campesina.",
         catalogCode: "RO-MENSU-AP",
         catalogOrigin: "Investigación Histórica y Testimonios Épicos",
@@ -1102,7 +1102,7 @@
         music: "video/El Mensú.mp4",
         musicTitle: "El Mensú",
         musicArtist: "Ramón Ayala y Vicente Cidade (1956)",
-        musicCover: "images/El_Infierno_Verde.webp",
+        musicCover: "images/El_Infierno_Verde.jpg",
         musicExplanation: "En 1956, la creación del tema 'El Mensú' permitió que las nuevas generaciones conocieran la cruda realidad vivida en los yerbales del Alto Paraná. La música impidió que la memoria de miles de trabajadores anónimos fuera sepultada por el olvido.",
         contentLeft: [
           {
@@ -1264,7 +1264,7 @@
         subtitle: "¿Por qué el canto del karáu suena como un lamento?",
         location: "Esteros y Humedales del Paraguay",
         date: "Cosmovisión Guaraní",
-        image: "images/Ecos_del_Llanto.webp",
+        image: "images/Ecos_del_Llanto.jpg",
         caption: "El Karãu (Aramus guarauna) habitante de los esteros paraguayos. Ave mítica y símbolo del folclore nacional.",
         catalogCode: "RO-M-KARAUR",
         catalogOrigin: "Mitos Etiológicos Guaraníes",
@@ -1273,7 +1273,7 @@
         music: "video/LA LEYENDA DEL KARAU.mp4",
         musicTitle: "La Leyenda del Karãu",
         musicArtist: "Folclore Tradicional Paraguayo",
-        musicCover: "images/Ecos_del_Llanto.webp",
+        musicCover: "images/Ecos_del_Llanto.jpg",
         musicExplanation: "Como muchas leyendas paraguayas, la historia del Karãu inspiró composiciones folclóricas imperecederas. Gracias a la música, el canto del ave dejó de ser un simple sonido de los esteros para convertirse en un ícono de la identidad cultural del Paraguay.",
         contentLeft: [
           {
@@ -1560,7 +1560,7 @@
       const reveal = document.getElementById('initial-reveal');
       if (!reveal) return;
       const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      const criticalImages = ['images/parchment_bg_for_relatos.webp'];
+      const criticalImages = ['images/parchment_bg_for_relatos.png'];
       const preloadCriticalImages = Promise.all(criticalImages.map((src) => new Promise((resolve) => { const image = new Image(); image.onload = image.onerror = resolve; image.src = src; })));
       const pageLoaded = document.readyState === 'complete' ? Promise.resolve() : new Promise((resolve) => window.addEventListener('load', resolve, { once: true }));
       const timeout = new Promise((resolve) => setTimeout(resolve, 4000));
