@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" href="images/ico.ico">
+  <link rel="icon" href="images/ico.jpg">
 
   <title>Expediente Histórico - Relatos Ocultos</title>
   <meta name="description"
@@ -49,7 +49,7 @@
     body {
       font-family: 'Lora', serif;
       background-color: var(--parchment-dark);
-      background-image: url('images/parchment_bg_for_relatos.png');
+      background-image: url('images/parchment_bg_for_relatos.jpg');
       background-size: cover;
       background-attachment: fixed;
       color: var(--ink);
@@ -1560,7 +1560,7 @@
       const reveal = document.getElementById('initial-reveal');
       if (!reveal) return;
       const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      const criticalImages = ['images/parchment_bg_for_relatos.png'];
+      const criticalImages = ['images/parchment_bg_for_relatos.jpg'];
       const preloadCriticalImages = Promise.all(criticalImages.map((src) => new Promise((resolve) => { const image = new Image(); image.onload = image.onerror = resolve; image.src = src; })));
       const pageLoaded = document.readyState === 'complete' ? Promise.resolve() : new Promise((resolve) => window.addEventListener('load', resolve, { once: true }));
       const timeout = new Promise((resolve) => setTimeout(resolve, 4000));
