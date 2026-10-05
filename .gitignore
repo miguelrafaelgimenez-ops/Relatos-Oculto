@@ -22,3 +22,7 @@
 /audio/
 /images/
 /video/
+
+# Las imágenes del sitio deben incluirse en el despliegue
+!/images/
+!/images/**
