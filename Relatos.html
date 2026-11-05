@@ -4,6 +4,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="manifest" href="manifest.webmanifest">
+  <script src="offline.js" defer></script>
   <link rel="icon" href="images/ico.ico">
 
   <title>Expediente Histórico - Relatos Ocultos</title>
@@ -1425,26 +1427,49 @@
         document.getElementById('story-meta-location').innerText = data.location;
         document.getElementById('story-meta-date').innerText = data.date;
 
-        // Renderizar narrativa estructurada en la página izquierda
+        // Repartir los bloques de narrativa existentes entre ambas páginas del expediente.
         const narrativeContainer = document.getElementById('story-narrative-container');
-        narrativeContainer.innerHTML = '';
+        const rightPage = document.querySelector('.archive-right');
+        let rightNarrative = document.getElementById('story-narrative-right');
+        if (!rightNarrative) {
+          rightNarrative = document.createElement('div');
+          rightNarrative.id = 'story-narrative-right';
+          rightNarrative.className = 'story-narrative-right';
+          const catalogCard = rightPage.querySelector('.catalog-card');
+          rightPage.insertBefore(rightNarrative, catalogCard);
+        }
+        narrativeContainer.replaceChildren();
+        rightNarrative.replaceChildren();
 
+        const narrativeBlocks = [];
+        const addNarrativeBlock = (item, block) => {
+          const text = item.text || '';
+          const keepOnLeft =
+            text === 'El karáu existe realmente' ||
+            text.startsWith('Lo más curioso de esta historia es que el Karáu no pertenece solo a la imaginación.') ||
+            text.startsWith('Se distingue por su plumaje marrón oscuro con pequeñas manchas claras') ||
+            text === 'Rafael Barrett' ||
+            text.startsWith('Durante muchos años, lo que ocurría en los yerbales era poco conocido fuera de la región.') ||
+            text.startsWith('Lo que son los yerbales paraguayos fue la célebre serie de artículos');
+          if (keepOnLeft) block.dataset.keepOnLeft = 'true';
+          narrativeBlocks.push(block);
+        };
         data.contentLeft.forEach(item => {
           if (item.type === 'paragraph') {
             const p = document.createElement('p');
             p.className = 'narrative-p';
             p.innerText = item.text;
-            narrativeContainer.appendChild(p);
+            addNarrativeBlock(item, p);
           } else if (item.type === 'heading') {
             const h2 = document.createElement('h2');
             h2.className = 'bold-heading';
             h2.innerHTML = `<strong>${item.text}</strong>`;
-            narrativeContainer.appendChild(h2);
+            addNarrativeBlock(item, h2);
           } else if (item.type === 'quote') {
             const blockquote = document.createElement('blockquote');
             blockquote.className = 'quote-card';
             blockquote.innerHTML = `<span class="quote-mark">“</span><p>${item.text}</p>`;
-            narrativeContainer.appendChild(blockquote);
+            addNarrativeBlock(item, blockquote);
           } else if (item.type === 'infobox') {
             const box = document.createElement('div');
             box.className = `info-card ${item.boxType || ''}`;
@@ -1454,7 +1479,7 @@
               </div>
               <p class="info-card-text">${item.text.replace(/\n/g, '<br>')}</p>
             `;
-            narrativeContainer.appendChild(box);
+            addNarrativeBlock(item, box);
           } else if (item.type === 'timeline') {
             const tlContainer = document.createElement('div');
             tlContainer.className = 'timeline-card';
@@ -1477,7 +1502,7 @@
               </h3>
               <div class="timeline-list">${eventsHTML}</div>
             `;
-            narrativeContainer.appendChild(tlContainer);
+            addNarrativeBlock(item, tlContainer);
           } else if (item.type === 'summary') {
             const sumBox = document.createElement('div');
             sumBox.className = 'summary-card';
@@ -1490,14 +1515,45 @@
               </div>
               <p>${item.text}</p>
             `;
-            narrativeContainer.appendChild(sumBox);
+            addNarrativeBlock(item, sumBox);
           }
         });
+
+        narrativeBlocks.forEach((block) => narrativeContainer.appendChild(block));
+
+        // Rellenar el espacio de la página derecha reubicando los últimos bloques
+        // escritos, sin modificar su contenido ni su orden de lectura.
+        const balanceNarrativePages = () => {
+          if (window.matchMedia('(max-width: 1100px)').matches) return;
+
+          const measurePageContent = (page) => {
+            const children = Array.from(page.children);
+            const gap = parseFloat(getComputedStyle(page).rowGap) || 0;
+            return children.reduce((height, child) => height + child.getBoundingClientRect().height, 0)
+              + Math.max(0, children.length - 1) * gap;
+          };
+
+          while (narrativeContainer.children.length > 1) {
+            const currentDifference = Math.abs(measurePageContent(narrativeContainer.parentElement) - measurePageContent(rightPage));
+            const lastBlock = Array.from(narrativeContainer.children).reverse()
+              .find((block) => block.dataset.keepOnLeft !== 'true');
+            if (!lastBlock) break;
+            const originalNextSibling = lastBlock.nextSibling;
+            rightNarrative.insertBefore(lastBlock, rightNarrative.firstChild);
+            const nextDifference = Math.abs(measurePageContent(narrativeContainer.parentElement) - measurePageContent(rightPage));
+            if (nextDifference >= currentDifference) {
+              narrativeContainer.insertBefore(lastBlock, originalNextSibling);
+              rightNarrative.removeChild(lastBlock);
+              break;
+            }
+          }
+        };
 
         // Asignar imagen histórica y pie de foto
         document.getElementById('story-image').src = data.image;
         document.getElementById('story-image').alt = data.title;
         document.getElementById('story-caption').innerText = data.caption;
+        requestAnimationFrame(() => requestAnimationFrame(balanceNarrativePages));
 
         // Asignar Tarjeta de Música Integrada
         document.getElementById('music-track-title').innerText = data.musicTitle;
@@ -1609,6 +1665,7 @@
       });
     })();
   </script>
+  <script src="offline.js" defer></script>
 </body>
 
 </html>

@@ -1,0 +1,18 @@
+{
+  "name": "Relatos Ocultos",
+  "short_name": "Relatos",
+  "description": "Relatos históricos y leyendas del Paraguay.",
+  "lang": "es",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#1c120c",
+  "theme_color": "#1c120c",
+  "icons": [
+    {
+      "src": "images/ico.jpg",
+      "sizes": "any",
+      "type": "image/jpeg"
+    }
+  ]
+}

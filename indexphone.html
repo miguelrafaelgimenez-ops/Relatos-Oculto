@@ -4,6 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="manifest" href="manifest.webmanifest">
   <link rel="icon" href="images/ico.ico">
 
   <!-- Redirección automática para equipos de escritorio -->
@@ -3238,15 +3239,16 @@
   </button>
 
   <!-- Scripts -->
-  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js" defer></script>
   <script>
     // Inicializar biblioteca de animaciones AOS
-    AOS.init({
-      once: true,
-      offset: 60,
-      duration: 800,
-      easing: 'ease-out-quad'
-    });
+    if (window.AOS) {
+      window.AOS.init({ once: true, offset: 60, duration: 800, easing: 'ease-out-quad' });
+    } else {
+      document.querySelectorAll('[data-aos]').forEach(function (element) {
+        element.removeAttribute('data-aos');
+      });
+    }
 
     // =============================================
     // Sidebar: toggle móvil
@@ -3519,7 +3521,8 @@
       const criticalImages = ['images/parchment_bg.jpg', 'images/brown_paper_texture.jpg', 'images/background1.jpg', 'images/backgrounddescarga.jpg'];
       const preloadCriticalImages = Promise.all(criticalImages.map((src) => new Promise((resolve) => { const image = new Image(); image.onload = image.onerror = resolve; image.src = src; })));
       const pageLoaded = document.readyState === 'complete' ? Promise.resolve() : new Promise((resolve) => window.addEventListener('load', resolve, { once: true }));
-      const timeout = new Promise((resolve) => setTimeout(resolve, 4000));
+      const documentReady = document.readyState === 'loading' ? new Promise((resolve) => document.addEventListener('DOMContentLoaded', resolve, { once: true })) : Promise.resolve();
+      const timeout = new Promise((resolve) => setTimeout(resolve, 1200));
       function buildGrid() {
         const columns = Math.min(32, Math.max(12, Math.ceil(window.innerWidth / 45)));
         const rows = Math.min(30, Math.max(14, Math.ceil(window.innerHeight / 45)));
@@ -3535,7 +3538,7 @@
         setTimeout(() => reveal.remove(), duration);
       }
       buildGrid();
-      Promise.race([Promise.all([preloadCriticalImages, pageLoaded]), timeout]).then(removeReveal);
+      Promise.race([Promise.all([preloadCriticalImages, pageLoaded]), documentReady, timeout]).then(removeReveal);
     })();
   </script>
   <script>
@@ -3605,6 +3608,7 @@
       });
     })();
   </script>
+  <script src="offline.js" defer></script>
 </body>
 
 </html>
